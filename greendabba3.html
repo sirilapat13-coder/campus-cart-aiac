@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the page scale properly on phones and tablets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Green Dabba 1 | SRU Campus Cart</title>
+
+  <!-- Same font as the homepage and Canteen page -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link to this page's CSS file (must be in the same folder as green-dabba-1.html) -->
+  <!-- Shared styles first, then this page's own styles -->
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/greendabba3.css">
+</head>
+<body>
+
+  <!-- ============ SITE HEADER (same on every page) ============ -->
+  <header class="site-header">
+    <div class="navbar">
+
+      <!-- Logo: always links to the homepage -->
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <!-- Cart link. The count badge stays hidden until JavaScript fills it in. -->
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <!-- Account button + dropdown. <details> opens and closes on click without JavaScript.
+             The details below are placeholders for now. -->
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 1. STORE INFORMATION SECTION ============ -->
+  <header class="store-header">
+    <div class="store-header-inner">
+
+      <!-- Back button returns to the homepage -->
+      <a href="homepage.html" class="back-button">&larr; Back to Stores</a>
+
+      <div class="store-details">
+        <h1 class="store-name-title">Green Dabba 3</h1>
+
+        <!-- Location, hours and status in one row -->
+        <ul class="store-meta">
+          <li class="meta-item">📍 SRU Campus, Block B</li>
+          <li class="meta-item">🕗 9:00 AM – 9:00 PM</li>
+          <li class="meta-item">
+            <!-- Open/Closed badge. To show Closed, change class "open" to "closed"
+                 and change the text to "Closed". -->
+            <span class="status-badge open" id="shop-status" data-status="open">
+              <span class="status-dot"></span>
+              Open now
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="store-main" data-shop-id="green-dabba-3">
+
+    <!-- Shown only when the shop is closed. JavaScript will remove the "hidden" attribute later. -->
+    <p class="closed-notice" id="shop-closed-notice" role="status" hidden>
+      This shop is currently closed. You can look around, but ordering is unavailable until it opens.
+    </p>
+
+
+    <!-- ============ 2. SEARCH BAR (design only, no JavaScript yet) ============ -->
+    <section class="search-section" aria-label="Search food items">
+      <form class="search-bar" role="search" action="#">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+        </svg>
+        <input type="search" name="q" id="product-search" placeholder="Search for food items..."
+               aria-label="Search for food items">
+      </form>
+    </section>
+
+    <!-- ============ 3. CATEGORY TABS ============
+         Each link jumps to the section with the matching id below. -->
+    <nav class="category-tabs" aria-label="Food categories">
+      <a href="#food" class="tab">Food</a>
+      <a href="#milkshakes" class="tab">Milkshakes</a>
+      <a href="#ice-creams" class="tab">Ice Creams</a>
+      <a href="#drinks" class="tab">Drinks</a>
+      <a href="#snacks" class="tab">Snacks</a>
+    </nav>
+
+    <!-- Shown by JavaScript when a search finds nothing -->
+    <p class="no-results" id="no-results" role="status" hidden>No food items found. Try a different name or clear the search.</p>
+
+
+    <!-- ============ 4. FOOD SECTIONS ============
+         Every food card has the same structure. Copy one card to add a new item.
+         The emoji inside .food-image is the food picture. To use a real photo,
+         replace the whole <span> with:
+         <img src="images/veg-fried-rice.jpg" alt="Veg Fried Rice">          -->
+
+    <!-- ---------- FOOD ---------- -->
+    <section class="food-section" id="food">
+      <h2 class="section-title">Food</h2>
+      <div class="food-grid">
+
+        <article data-product-id="green-dabba-3-veg-fried-rice" data-category="food" data-price="80" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Veg Fried Rice">🍚</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Veg Fried Rice</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹80</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-paneer-roll" data-category="food" data-price="70" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Paneer Roll">🌯</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Paneer Roll</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹70</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-chapati-with-curry" data-category="food" data-price="60" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Chapati with Curry">🫓</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Chapati with Curry</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹60</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- OUT OF STOCK example: the card gets the extra class "out-of-stock",
+             and the buttons get the "disabled" attribute. -->
+        <article data-product-id="green-dabba-3-veg-biryani" data-category="food" data-price="90" class="food-card out-of-stock">
+          <div class="food-image"><span role="img" aria-label="Veg Biryani">🍛</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Veg Biryani</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹90</p>
+              <span class="availability unavailable">Out of Stock</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity" disabled>−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity" disabled>+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart" disabled>Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- MILKSHAKES ---------- -->
+    <section class="food-section" id="milkshakes">
+      <h2 class="section-title">Milkshakes</h2>
+      <div class="food-grid">
+
+        <article data-product-id="green-dabba-3-chocolate-milkshake" data-category="milkshakes" data-price="60" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Chocolate Milkshake">🍫</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Chocolate Milkshake</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹60</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-mango-milkshake" data-category="milkshakes" data-price="65" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Mango Milkshake">🥭</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Mango Milkshake</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹65</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">2</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-mango-milkshake" data-category="milkshakes" data-price="65" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Mango Milkshake">🥭</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Mango Milkshake</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹65</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-banana-milkshake" data-category="milkshakes" data-price="55" class="food-card out-of-stock">
+          <div class="food-image"><span role="img" aria-label="Banana Milkshake">🍌</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Banana Milkshake</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹55</p>
+              <span class="availability unavailable">Out of Stock</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity" disabled>−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity" disabled>+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart" disabled>Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- ICE CREAMS ---------- -->
+    <section class="food-section" id="ice-creams">
+      <h2 class="section-title">Ice Creams</h2>
+      <div class="food-grid">
+
+        <article data-product-id="green-dabba-3-vanilla-cup" data-category="ice-creams" data-price="30" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Vanilla Ice Cream Cup">🍨</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Vanilla Cup</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹30</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-chocolate-cone" data-category="ice-creams" data-price="40" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Chocolate Cone">🍦</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Chocolate Cone</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹40</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-butterscotch-scoop" data-category="ice-creams" data-price="45" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Butterscotch Scoop">🍧</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Butterscotch Scoop</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹45</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-malai-kulfi" data-category="ice-creams" data-price="35" class="food-card out-of-stock">
+          <div class="food-image"><span role="img" aria-label="Kulfi">🍡</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Malai Kulfi</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹35</p>
+              <span class="availability unavailable">Out of Stock</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity" disabled>−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity" disabled>+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart" disabled>Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- DRINKS ---------- -->
+    <section class="food-section" id="drinks">
+      <h2 class="section-title">Drinks</h2>
+      <div class="food-grid">
+
+        <article data-product-id="green-dabba-3-fresh-lime-soda" data-category="drinks" data-price="30" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Fresh Lime Soda">🍋</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Fresh Lime Soda</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹30</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-tender-coconut-water" data-category="drinks" data-price="40" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Tender Coconut Water">🥥</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Tender Coconut Water</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹40</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-masala-buttermilk" data-category="drinks" data-price="20" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Buttermilk">🥛</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Masala Buttermilk</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹20</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- SNACKS ---------- -->
+    <section class="food-section" id="snacks">
+      <h2 class="section-title">Snacks</h2>
+      <div class="food-grid">
+
+        <article data-product-id="green-dabba-3-samosa-2-pcs" data-category="snacks" data-price="20" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Samosa">🥟</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Samosa (2 pcs)</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹20</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-veg-sandwich" data-category="snacks" data-price="40" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Veg Sandwich">🥪</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Veg Sandwich</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹40</p>
+              <span class="availability available">Available</span>
+            </div>
+
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="green-dabba-3-masala-corn" data-category="snacks" data-price="35" class="food-card out-of-stock">
+          <div class="food-image"><span role="img" aria-label="Masala Corn">🌽</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Masala Corn</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹35</p>
+              <span class="availability unavailable">Out of Stock</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity" disabled>−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity" disabled>+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart" disabled>Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ 5. STICKY CART SUMMARY ============
+       Fixed to the bottom of the screen. Values are sample static text for now.
+       View Cart links to the separate Cart page (cart.html). -->
+  <aside class="cart-bar" aria-label="Cart summary">
+    <div class="cart-bar-inner">
+      <div class="cart-summary">
+        <span class="cart-icon" aria-hidden="true">🛒</span>
+        <div>
+          <p class="cart-bar-count" id="cart-bar-count">2 items</p>
+          <p class="cart-bar-total" id="cart-bar-total">Total: ₹110</p>
+        </div>
+      </div>
+      <a href="cart.html" class="view-cart-button">View Cart</a>
+    </div>
+  </aside>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/pages/shop-page.js"></script>
+
+
+</body>
+</html>

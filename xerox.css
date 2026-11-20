@@ -1,0 +1,465 @@
+/* =====================================================
+   SRU Campus Cart - Xerox & Printing page styles
+   Shared styles (colours, reset, header, cart bar) are in common.css.
+   ===================================================== */
+
+/* ---------- 1. SHOP INFORMATION SECTION ---------- */
+.store-header {
+  background-color: var(--blue-light);
+  border-bottom: 1px solid var(--border);
+}
+
+.store-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px 24px;
+}
+
+.store-name-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 8px;
+}
+
+/* FLEXBOX: location, hours and status sit in one row.
+   flex-wrap lets them move to the next line on small screens. */
+.store-meta {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 24px;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+/* Open / Closed badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-badge.open {
+  background-color: #E3F6EC;
+  color: var(--green-status);
+}
+
+.status-badge.open .status-dot {
+  background-color: var(--green-status);
+}
+
+.status-badge.closed {
+  background-color: var(--red-light);
+  color: var(--red-status);
+}
+
+.status-badge.closed .status-dot {
+  background-color: var(--red-status);
+}
+
+/* ---------- 2. MAIN CONTENT WRAPPER ----------
+   The big bottom padding keeps the form from being
+   hidden behind the sticky cart bar. */
+.store-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 120px;
+}
+
+/* ---------- 3. FORM CARD ---------- */
+.xerox-card {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 32px;
+}
+
+.xerox-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.xerox-subtitle {
+  color: var(--text-soft);
+  margin-top: 4px;
+  margin-bottom: 24px;
+}
+
+/* Each part of the form (upload, options, instructions) is a "block".
+   The light blue background separates the parts clearly. */
+.form-block {
+  background-color: var(--blue-light);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 20px;
+}
+
+.block-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+  margin-bottom: 14px;
+}
+
+/* ---------- 4. UPLOAD AREA ---------- */
+/* FLEXBOX in a column: icon, text and file picker are centred in a stack */
+.upload-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  padding: 32px 20px;
+  background-color: var(--white);
+  border: 2px dashed var(--blue-main);
+  border-radius: 16px;
+  transition: background-color 0.2s;
+}
+
+.upload-area:hover {
+  background-color: #F6FAFF;
+}
+
+.upload-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--blue-light);
+  color: var(--blue-main);
+  margin-bottom: 8px;
+}
+
+.upload-heading {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+}
+
+.upload-note {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+/* The real file picker. ::file-selector-button styles the "Choose File" button. */
+.upload-input {
+  max-width: 100%;
+  font-size: 0.95rem;
+  color: var(--text-soft);
+}
+
+.upload-input::file-selector-button {
+  margin-right: 12px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.upload-input::file-selector-button:hover {
+  background-color: var(--blue-dark);
+}
+
+/* Box that shows the uploaded file name */
+.file-name-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 14px;
+  padding: 12px 16px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+}
+
+.file-name-icon {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background-color: var(--blue-light);
+  font-size: 1.3rem;
+}
+
+.file-name-label {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+  line-height: 1.2;
+}
+
+.file-name-text {
+  font-weight: 600;
+  color: var(--blue-dark);
+  word-break: break-word;   /* long file names wrap instead of overflowing */
+}
+
+/* ---------- 5. PRINTING OPTIONS ----------
+   GRID: two equal columns on desktop (one column on mobile, see section 11). */
+.options-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 28px;
+}
+
+/* <fieldset> groups related radio buttons. Remove its default border. */
+.option-group {
+  border: none;
+  min-width: 0;             /* lets the grid shrink the group on small screens */
+}
+
+.option-legend {
+  display: block;
+  padding: 0;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.option-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Selectable option cards.
+   The real radio button is hidden. When it is :checked, the card next to it
+   (.option-body) changes colour. This works with pure CSS, no JavaScript. */
+.option-card {
+  position: relative;
+  display: block;
+  cursor: pointer;
+}
+
+.option-card input {
+  position: absolute;       /* hidden but still usable with keyboard */
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.option-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 14px 10px;
+  text-align: center;
+  background-color: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  transition: border-color 0.2s, background-color 0.2s, box-shadow 0.2s;
+}
+
+.option-card:hover .option-body {
+  border-color: var(--blue-main);
+}
+
+/* Selected card */
+.option-card input:checked + .option-body {
+  border-color: var(--blue-main);
+  background-color: #F3F9FF;
+  box-shadow: 0 0 0 3px rgba(39, 134, 217, 0.18);
+}
+
+/* Keyboard focus outline */
+.option-card input:focus-visible + .option-body {
+  outline: 3px solid var(--blue-main);
+  outline-offset: 2px;
+}
+
+.option-icon {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+/* "A4" and "A3" shown as text icons */
+.option-icon-text {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--blue-main);
+}
+
+.option-text {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+}
+
+/* ---------- 6. QUANTITY SELECTOR (number of copies) ---------- */
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--white);
+}
+
+.qty-button {
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--blue-main);
+  font-size: 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.qty-button:hover {
+  background-color: var(--blue-light);
+}
+
+.qty-input {
+  width: 56px;
+  border: none;
+  background: transparent;
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--text);
+  -moz-appearance: textfield;   /* hides the tiny browser arrows in Firefox */
+}
+
+.qty-input::-webkit-outer-spin-button,
+.qty-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;     /* hides the tiny browser arrows in Chrome/Safari */
+  margin: 0;
+}
+
+.qty-input:focus {
+  outline: none;
+}
+
+/* ---------- 7. ADDITIONAL INSTRUCTIONS & ADD BUTTON ---------- */
+.instructions-box {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: var(--text);
+  background-color: var(--white);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  resize: vertical;             /* user can only drag the box taller or shorter */
+}
+
+.instructions-box::placeholder {
+  color: var(--text-soft);
+}
+
+.instructions-box:focus {
+  outline: none;
+  border-color: var(--blue-main);
+}
+
+.add-button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.add-button:hover {
+  background-color: var(--blue-dark);
+}
+
+.add-button:active {
+  transform: scale(0.97);       /* small "press" effect */
+}
+
+.xerox-add-button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+}
+
+/* ---------- 8. RESPONSIVE DESIGN ---------- */
+
+/* Tablet */
+@media (max-width: 800px) {
+  .store-name-title {
+    font-size: 1.9rem;
+  }
+
+  .xerox-card {
+    padding: 24px;
+  }
+
+  /* Options stack in one column */
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .store-header-inner,
+  .store-main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .store-name-title {
+    font-size: 1.7rem;
+  }
+
+  .xerox-card {
+    padding: 18px;
+  }
+
+  .xerox-title {
+    font-size: 1.5rem;
+  }
+
+  .form-block {
+    padding: 16px;
+  }
+
+  .upload-area {
+    padding: 24px 12px;
+  }
+
+  .view-cart-button {
+    padding: 12px 20px;
+  }
+}
+
+/* Extra keyboard outline for the file picker and copies box (the rest is in common.css) */
+.upload-input:focus-visible,
+.qty-input:focus-visible {
+  outline: 3px solid var(--blue-main);
+  outline-offset: 2px;
+}

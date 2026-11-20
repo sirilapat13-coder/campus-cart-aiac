@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the page scale properly on phones and tablets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Canteen | SRU Campus Cart</title>
+
+  <!-- Same font as the homepage. If it fails to load, the fallback in the CSS is used. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link to this page's CSS file (must be in the same folder as canteen.html) -->
+  <!-- Shared styles first, then this page's own styles -->
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/canteen.css">
+</head>
+<body>
+
+  <!-- ============ SITE HEADER (same on every page) ============ -->
+  <header class="site-header">
+    <div class="navbar">
+
+      <!-- Logo: always links to the homepage -->
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <!-- Cart link. The count badge stays hidden until JavaScript fills it in. -->
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <!-- Account button + dropdown. <details> opens and closes on click without JavaScript.
+             The details below are placeholders for now. -->
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 1. CANTEEN INFORMATION SECTION ============ -->
+  <header class="canteen-header">
+    <div class="canteen-header-inner">
+
+      <!-- Back button returns to the homepage -->
+      <a href="homepage.html" class="back-button">&larr; Back to Stores</a>
+
+      <div class="canteen-details">
+        <h1 class="canteen-name">Canteen</h1>
+
+        <!-- Location, hours and status in one row -->
+        <ul class="canteen-meta">
+          <li class="meta-item">📍 SRiX Block</li>
+          <li class="meta-item">🕗 8:00 AM – 8:00 PM</li>
+          <li class="meta-item">
+            <!-- Open/Closed badge. To show Closed, change class "open" to "closed"
+                 and change the text to "Closed". -->
+            <span class="status-badge open" id="shop-status" data-status="open">
+              <span class="status-dot"></span>
+              Open now
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="canteen-main" data-shop-id="canteen">
+
+    <!-- Shown only when the shop is closed. JavaScript will remove the "hidden" attribute later. -->
+    <p class="closed-notice" id="shop-closed-notice" role="status" hidden>
+      This shop is currently closed. You can look around, but ordering is unavailable until it opens.
+    </p>
+
+
+    <!-- ============ 2. SEARCH BAR (design only, no JavaScript yet) ============ -->
+    <section class="search-section" aria-label="Search food items">
+      <form class="search-bar" role="search" action="#">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none"
+             stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+        </svg>
+        <input type="search" name="q" id="product-search" placeholder="Search for food items..."
+               aria-label="Search for food items">
+      </form>
+    </section>
+
+    <!-- ============ 3. CATEGORY TABS ============
+         Each link jumps to the section with the matching id below. -->
+    <nav class="category-tabs" aria-label="Food categories">
+      <a href="#breakfast" class="tab">Breakfast</a>
+      <a href="#lunch" class="tab">Lunch</a>
+      <a href="#snacks" class="tab">Snacks</a>
+      <a href="#drinks" class="tab">Drinks</a>
+      <a href="#desserts" class="tab">Desserts</a>
+    </nav>
+
+    <!-- Shown by JavaScript when a search finds nothing -->
+    <p class="no-results" id="no-results" role="status" hidden>No food items found. Try a different name or clear the search.</p>
+
+
+    <!-- ============ 4. FOOD SECTIONS ============
+         Every food card has the same structure. Copy one card to add a new item.
+         The emoji inside .food-image is the food picture. To use a real photo,
+         replace the whole <span> with:
+         <img src="images/idli.jpg" alt="Idli Sambar">                       -->
+
+    <!-- ---------- BREAKFAST ---------- -->
+    <section class="food-section" id="breakfast">
+      <h2 class="section-title">Breakfast</h2>
+      <div class="food-grid">
+
+        <article data-product-id="canteen-idli-sambar" data-category="breakfast" data-price="30" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Idli Sambar">🍚</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Idli Sambar</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹30</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-masala-dosa" data-category="breakfast" data-price="60" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Masala Dosa">🌯</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Masala Dosa</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹60</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-poori-curry" data-category="breakfast" data-price="50" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Poori Curry">🫓</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Poori Curry</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹50</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- LUNCH ---------- -->
+    <section class="food-section" id="lunch">
+      <h2 class="section-title">Lunch</h2>
+      <div class="food-grid">
+
+        <article data-product-id="canteen-veg-meals" data-category="lunch" data-price="70" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Veg Meals">🍛</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Veg Meals</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹70</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-chicken-biryani" data-category="lunch" data-price="110" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Chicken Biryani">🍲</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Chicken Biryani</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹110</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- OUT OF STOCK example: the card gets the extra class "out-of-stock",
+             and the buttons get the "disabled" attribute. -->
+        <article data-product-id="canteen-curd-rice" data-category="lunch" data-price="40" class="food-card out-of-stock">
+          <div class="food-image"><span role="img" aria-label="Curd Rice">🥛</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Curd Rice</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹40</p>
+              <span class="availability unavailable">Out of Stock</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity" disabled>−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity" disabled>+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart" disabled>Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- SNACKS ---------- -->
+    <section class="food-section" id="snacks">
+      <h2 class="section-title">Snacks</h2>
+      <div class="food-grid">
+
+        <article data-product-id="canteen-samosa-2-pcs" data-category="snacks" data-price="20" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Samosa">🥟</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Samosa (2 pcs)</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹20</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-veg-puff" data-category="snacks" data-price="25" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Veg Puff">🥐</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Veg Puff</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹25</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-french-fries" data-category="snacks" data-price="50" class="food-card">
+          <div class="food-image"><span role="img" aria-label="French Fries">🍟</span></div>
+          <div class="food-body">
+            <h3 class="food-name">French Fries</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹50</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- DRINKS ---------- -->
+    <section class="food-section" id="drinks">
+      <h2 class="section-title">Drinks</h2>
+      <div class="food-grid">
+
+        <article data-product-id="canteen-filter-coffee" data-category="drinks" data-price="15" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Filter Coffee">☕</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Filter Coffee</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹15</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-masala-tea" data-category="drinks" data-price="12" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Masala Tea">🍵</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Masala Tea</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹12</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-fresh-lime-soda" data-category="drinks" data-price="30" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Fresh Lime Soda">🍋</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Fresh Lime Soda</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹30</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ---------- DESSERTS ---------- -->
+    <section class="food-section" id="desserts">
+      <h2 class="section-title">Desserts</h2>
+      <div class="food-grid">
+
+        <article data-product-id="canteen-gulab-jamun-2-pcs" data-category="desserts" data-price="30" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Gulab Jamun">🍡</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Gulab Jamun (2 pcs)</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹30</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-ice-cream-cup" data-category="desserts" data-price="40" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Ice Cream Cup">🍨</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Ice Cream Cup</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹40</p>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="canteen-chocolate-brownie" data-category="desserts" data-price="60" class="food-card out-of-stock">
+          <div class="food-image"><span role="img" aria-label="Chocolate Brownie">🍫</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Chocolate Brownie</h3>
+            <div class="food-price-row">
+              <p class="food-price">₹60</p>
+              <span class="availability unavailable">Out of Stock</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity" disabled>−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity" disabled>+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart" disabled>Add to Cart</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ 5. STICKY CART SUMMARY ============
+       Fixed to the bottom of the screen. Values are sample static text for now. -->
+  <aside class="cart-bar" aria-label="Cart summary">
+    <div class="cart-bar-inner">
+      <div class="cart-summary">
+        <span class="cart-icon" aria-hidden="true">🛒</span>
+        <div>
+          <p class="cart-bar-count" id="cart-bar-count">3 items</p>
+          <p class="cart-bar-total" id="cart-bar-total">Total: ₹130</p>
+        </div>
+      </div>
+      <a href="cart.html" class="view-cart-button">View Cart</a>
+    </div>
+  </aside>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/pages/shop-page.js"></script>
+
+</body>
+</html>

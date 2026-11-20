@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Supabase connection test</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+  <h1>Supabase connection test</h1>
+
+  <form id="login-form">
+    <p>Log in with your test CUSTOMER account:</p>
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit">Log in and test</button>
+  </form>
+
+  <pre id="output"></pre>
+
+  <script type="module">
+    // Bring in the connection you just created.
+    import { supabase } from './js/supabaseClient.js';
+
+    // "output" is the empty box on the page where results are printed.
+    const output = document.getElementById('output');
+
+    // A small helper: adds one line of text to the output box.
+    const show = (text) => {
+      output.textContent += text + '\n';
+    };
+
+    // TEST A: ask for the shops while NOT logged in.
+    // "await" means "wait here until Supabase answers".
+    // Your security rules should refuse this, so we expect an error.
+    const loggedOut = await supabase.from('shops').select('name');
+    if (loggedOut.error) {
+      show('A. Logged out: blocked as expected -> ' + loggedOut.error.message);
+    } else {
+      show('A. Logged out: got ' + loggedOut.data.length + ' rows (UNEXPECTED - tell me)');
+    }
+
+    // The next tests run when you click the "Log in and test" button.
+    document.getElementById('login-form').addEventListener('submit', async (event) => {
+      // Stops the browser from reloading the page when the form is submitted.
+      event.preventDefault();
+
+      // Read what you typed into the two boxes.
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      // TEST B: log in.
+      const login = await supabase.auth.signInWithPassword({ email, password });
+      if (login.error) {
+        show('B. Login failed -> ' + login.error.message);
+        return;
+      }
+      show('B. Logged in OK');
+
+      // TEST C: now that you are logged in, read the shops.
+      // This should work and return all 7 shops.
+      const shops = await supabase
+        .from('shops')
+        .select('name, slug, category, is_open')
+        .order('sort_order');
+      if (shops.error) {
+        show('C. Shops failed -> ' + shops.error.message);
+      } else {
+        show('C. Shops loaded: ' + shops.data.length);
+        shops.data.forEach((shop) => show('   - ' + shop.name + ' (' + shop.category + ')'));
+      }
+
+      // TEST D: read your own profile (name and role).
+      const profile = await supabase
+        .from('profiles')
+        .select('full_name, role')
+        .eq('id', login.data.user.id)
+        .single();
+      if (profile.error) {
+        show('D. Profile failed -> ' + profile.error.message);
+      } else {
+        show('D. Your profile: ' + profile.data.full_name + ' (role: ' + profile.data.role + ')');
+      }
+
+      // TEST E: log out again so the test leaves nothing behind.
+      await supabase.auth.signOut();
+      show('E. Logged out again. Test finished.');
+    });
+  </script>
+</body>
+</html>

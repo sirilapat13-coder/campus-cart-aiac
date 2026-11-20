@@ -1,0 +1,412 @@
+/* =====================================================
+   SRU Campus Cart - Checkout page styles
+   Shared styles (colours, reset, header, buttons) are in common.css.
+   ===================================================== */
+
+/* ---------- 1. PAGE LAYOUT ---------- */
+.checkout-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+/* GRID: wider form column on the left, order column on the right.
+   The <form> itself is the grid, so the Place Order button stays inside it. */
+.checkout-layout {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.checkout-form,
+.order-column {
+  display: grid;
+  gap: 24px;
+  min-width: 0;             /* stops long text causing sideways scrolling */
+}
+
+/* ---------- 2. CARDS ---------- */
+.card {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 16px;
+}
+
+/* ---------- 3. FORM ---------- */
+.form-group {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.required {
+  color: var(--red-status);
+}
+
+.optional {
+  color: var(--text-soft);
+  font-weight: 400;
+  font-size: 0.85rem;
+}
+
+/* 16px text stops phones zooming in when typing */
+input[type="text"],
+input[type="tel"],
+select,
+textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 16px;
+  font-size: 1rem;
+  color: var(--text);
+  background-color: var(--blue-light);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: var(--text-soft);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--blue-main);
+  background-color: var(--white);
+}
+
+/* ---------- 4. PAYMENT OPTION ---------- */
+.payment-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 14px 16px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.payment-option input {
+  width: 20px;
+  height: 20px;
+  accent-color: var(--blue-main);
+  flex-shrink: 0;
+}
+
+.payment-text strong {
+  display: block;
+  color: var(--text);
+}
+
+.payment-text small {
+  color: var(--text-soft);
+  font-size: 0.9rem;
+}
+
+/* Selected option: blue border (works in every browser, no :has() needed) */
+.payment-option input:checked + .payment-text {
+  color: var(--blue-dark);
+}
+
+.payment-option:focus-within {
+  border-color: var(--blue-main);
+  background-color: var(--blue-light);
+}
+
+/* ---------- 5. ORDER SUMMARY ---------- */
+.store-name {
+  color: var(--text-soft);
+  font-size: 0.95rem;
+  margin-bottom: 12px;
+}
+
+.item-list {
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 0;
+  border-top: 1px solid var(--border);
+}
+
+.item-image {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  background-color: var(--blue-light);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+/* If you use a real <img> inside .item-image */
+.item-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.item-name {
+  font-weight: 600;
+  color: var(--blue-dark);
+  overflow-wrap: anywhere;
+}
+
+.item-meta {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  overflow-wrap: anywhere;
+}
+
+.item-price {
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* ---------- 6. PRICE SUMMARY ---------- */
+.price-list {
+  display: block;
+}
+
+.price-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  color: var(--text-soft);
+}
+
+.price-row dd {
+  font-weight: 600;
+  color: var(--text);
+  text-align: right;
+}
+
+.total-row {
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.total-row dd {
+  font-size: 1.25rem;
+  color: var(--blue-dark);
+}
+
+.note {
+  margin-top: 12px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+/* ---------- 7. PLACE ORDER BUTTON ---------- */
+.place-order {
+  text-align: center;
+}
+
+.btn-primary {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--white);
+  background-color: var(--blue-main);
+  border: none;
+  border-radius: 999px;     /* pill shape, same as every other button */
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.btn-primary:hover {
+  background-color: var(--blue-dark);
+}
+
+.btn-primary:active {
+  transform: scale(0.98);
+}
+
+.place-order .note {
+  margin-top: 14px;
+}
+
+/* ---------- 8. DESIGN SAMPLES (reference only) ---------- */
+.samples {
+  margin-top: 48px;
+  padding-top: 32px;
+  border-top: 2px dashed var(--border);
+}
+
+.samples-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.samples-note {
+  color: var(--text-soft);
+  margin-bottom: 20px;
+}
+
+.samples-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.sample-group {
+  display: grid;
+  gap: 24px;
+  align-content: start;
+  min-width: 0;
+}
+
+.badge {
+  justify-self: start;
+  padding: 4px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+  background-color: var(--white);
+  border: 1px solid var(--blue-main);
+  border-radius: 999px;
+}
+
+/* Xerox + Medicine detail boxes */
+.detail-box {
+  padding: 16px;
+  background-color: var(--blue-light);
+  border-radius: 14px;
+}
+
+.file-name {
+  font-weight: 600;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.detail-row dt {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.detail-row dd {
+  font-weight: 600;
+  text-align: right;
+  overflow-wrap: anywhere;
+}
+
+.detail-heading {
+  margin-bottom: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+.request-list {
+  list-style: none;
+  margin-bottom: 14px;
+}
+
+.request-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.request-list li span:last-child {
+  white-space: nowrap;
+  color: var(--text-soft);
+}
+
+.approval-note {
+  padding: 10px 14px;
+  font-size: 0.9rem;
+  color: var(--blue-dark);
+  background-color: var(--white);
+  border-left: 4px solid var(--blue-main);
+  border-radius: 8px;
+}
+
+.disclaimer {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: var(--text-soft);
+}
+
+/* ---------- 9. RESPONSIVE DESIGN ---------- */
+
+/* Tablet: columns stack, order summary comes after the form */
+@media (max-width: 900px) {
+  .checkout-layout,
+  .samples-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .checkout-main {
+    padding: 20px 16px 48px;
+  }
+
+  .card {
+    padding: 18px 16px;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .detail-row dd {
+    text-align: left;
+  }
+}

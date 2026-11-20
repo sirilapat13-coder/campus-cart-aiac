@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the page scale properly on phones and tablets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout | SRU Campus Cart</title>
+
+  <!-- Same font as every other page. If it fails to load, the fallback in common.css is used. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Shared styles first, then this page's own styles -->
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/checkout.css">
+</head>
+<body>
+
+  <!-- ============ SITE HEADER (same on every page) ============ -->
+  <header class="site-header">
+    <div class="navbar">
+
+      <!-- Logo: always links to the homepage -->
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <!-- Cart link. The count badge stays hidden until JavaScript fills it in. -->
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <!-- Account button + dropdown. <details> opens and closes on click without JavaScript.
+             The details below are placeholders for now. -->
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== PAGE HEADING ========== -->
+  <section class="page-hero">
+    <div class="page-hero-inner">
+      <a href="cart.html" class="back-button">&larr; Back to Cart</a>
+      <h1 class="page-title">Checkout</h1>
+      <p class="page-subtitle">Confirm your delivery details to place your order</p>
+    </div>
+  </section>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="checkout-main">
+
+    <!-- The form wraps BOTH columns, so the Place Order button is inside it.
+         Field names (full_name, phone, ...) are written so they can match
+         database columns later. -->
+    <form class="checkout-layout" id="checkout-form" action="#" method="post">
+
+      <!-- ===== LEFT COLUMN: Delivery Details + Payment ===== -->
+      <div class="checkout-form">
+
+        <section class="card" aria-labelledby="delivery-title">
+          <h2 class="card-title" id="delivery-title">Delivery Details</h2>
+
+          <div class="form-group">
+            <label for="full-name">Student Name <span class="required">*</span></label>
+            <input type="text" id="full-name" name="full_name"
+                   placeholder="e.g. Ravi Kumar" autocomplete="name" required>
+          </div>
+
+          <div class="form-group">
+            <label for="roll-number">Student ID / Roll Number <span class="required">*</span></label>
+            <input type="text" id="roll-number" name="roll_number"
+                   placeholder="e.g. 21XXXXXXXX" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Mobile Number <span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone"
+                   placeholder="10-digit mobile number"
+                   inputmode="numeric" maxlength="10" pattern="[0-9]{10}"
+                   autocomplete="tel" required>
+          </div>
+
+          <div class="form-group">
+            <label for="delivery-location">Delivery Location <span class="required">*</span></label>
+            <select id="delivery-location" name="delivery_location" required>
+              <option value="">Select a location</option>
+              <option value="srix">SRiX Block</option>
+              <option value="academic">Academic Block</option>
+              <option value="library">Library</option>
+              <option value="hostel">Hostel</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="room-or-landmark">Room Number / Landmark <span class="optional">(optional)</span></label>
+            <input type="text" id="room-or-landmark" name="room_or_landmark"
+                   placeholder="e.g. Room 204, or near the main gate">
+          </div>
+
+          <div class="form-group">
+            <label for="delivery-instructions">
+              Additional Delivery Instructions <span class="optional">(optional)</span>
+            </label>
+            <textarea id="delivery-instructions" name="delivery_instructions" rows="3"
+                      placeholder="e.g. Call me when you reach the gate"></textarea>
+          </div>
+        </section>
+
+        <!-- Only one payment option for now. More can be added later as extra radio cards. -->
+        <section class="card" aria-labelledby="payment-title">
+          <h2 class="card-title" id="payment-title">Payment Method</h2>
+
+          <label class="payment-option">
+            <input type="radio" name="payment_method" value="cod" checked>
+            <span class="payment-text">
+              <strong>Cash on Delivery (COD)</strong>
+              <small>Pay in cash to the delivery partner when your order arrives.</small>
+            </span>
+          </label>
+        </section>
+
+      </div>
+
+      <!-- ===== RIGHT COLUMN: Order Summary + Price + Place Order ===== -->
+      <div class="order-column">
+
+        <!-- ORDER SUMMARY: normal food order (sample). Every item row carries its product id,
+             quantity and unit price so the order can be saved later. -->
+        <section class="card" id="order-summary" data-shop-id="canteen" aria-labelledby="summary-title">
+          <h2 class="card-title" id="summary-title">Order Summary</h2>
+          <p class="store-name">From: Canteen</p>
+
+          <ul class="item-list" id="order-items-list">
+            <li class="item" data-product-id="canteen-masala-dosa" data-quantity="2" data-unit-price="60">
+              <!-- To use a real photo, replace the emoji with: <img src="images/masala-dosa.jpg" alt="Masala Dosa"> -->
+              <div class="item-image">🌯</div>
+              <div class="item-info">
+                <p class="item-name">Masala Dosa</p>
+                <p class="item-meta">Canteen &bull; Qty: 2 &bull; ₹60 each</p>
+              </div>
+              <p class="item-price">₹120</p>
+            </li>
+
+            <li class="item" data-product-id="canteen-veg-meals" data-quantity="1" data-unit-price="70">
+              <div class="item-image">🍛</div>
+              <div class="item-info">
+                <p class="item-name">Veg Meals</p>
+                <p class="item-meta">Canteen &bull; Qty: 1 &bull; ₹70 each</p>
+              </div>
+              <p class="item-price">₹70</p>
+            </li>
+
+            <li class="item" data-product-id="canteen-fresh-lime-soda" data-quantity="1" data-unit-price="30">
+              <div class="item-image">🍋</div>
+              <div class="item-info">
+                <p class="item-name">Fresh Lime Soda</p>
+                <p class="item-meta">Canteen &bull; Qty: 1 &bull; ₹30 each</p>
+              </div>
+              <p class="item-price">₹30</p>
+            </li>
+          </ul>
+        </section>
+
+        <!-- PRICE SUMMARY: food order -->
+        <section class="card" aria-labelledby="price-title">
+          <h2 class="card-title" id="price-title">Price Summary</h2>
+          <dl class="price-list">
+            <div class="price-row">
+              <dt>Item subtotal</dt>
+              <dd id="summary-subtotal">₹220</dd>
+            </div>
+            <div class="price-row">
+              <dt>Delivery fee</dt>
+              <dd id="summary-delivery-fee">₹20</dd>
+            </div>
+            <div class="price-row total-row">
+              <dt>Total amount</dt>
+              <dd id="summary-total">₹240</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- PLACE ORDER.
+             type="button" for now: it does nothing until JavaScript is added.
+             Then change it to type="submit" so the form's required fields are checked first. -->
+        <section class="card place-order">
+          <button type="button" class="btn-primary" id="place-order-button" data-action="place-order">Place Order</button>
+          <p class="note">Please verify your delivery details and order summary before placing your order.</p>
+        </section>
+
+      </div>
+    </form>
+
+    <!-- =====================================================
+         DESIGN SAMPLES (for reference only)
+         In the real site, only ONE order type shows at a time.
+         Copy the block you need into the Order Summary area above.
+         ===================================================== -->
+    <section class="samples">
+      <h2 class="samples-title">Design samples for other order types</h2>
+      <p class="samples-note">These are only for reference. The real checkout shows one store's order at a time.</p>
+
+      <div class="samples-grid">
+
+        <!-- ===== SAMPLE: XEROX ORDER ===== -->
+        <div class="sample-group">
+          <span class="badge">Sample: Xerox order</span>
+
+          <section class="card">
+            <h2 class="card-title">Order Summary</h2>
+            <p class="store-name">From: Xerox</p>
+
+            <div class="detail-box">
+              <p class="file-name">📄 Unit-3_DBMS_Lecture_Notes_Final_Version_2026.pdf</p>
+
+              <dl class="detail-list">
+                <div class="detail-row"><dt>Print type</dt><dd>Black &amp; White</dd></div>
+                <div class="detail-row"><dt>Printing sides</dt><dd>Double-sided</dd></div>
+                <div class="detail-row"><dt>Paper size</dt><dd>A4</dd></div>
+                <div class="detail-row"><dt>Number of copies</dt><dd>2</dd></div>
+                <div class="detail-row"><dt>Instructions</dt><dd>Please staple the pages together.</dd></div>
+                <div class="detail-row"><dt>Estimated price</dt><dd>Price to be confirmed</dd></div>
+              </dl>
+            </div>
+          </section>
+
+          <section class="card">
+            <h2 class="card-title">Price Summary</h2>
+            <dl class="price-list">
+              <div class="price-row">
+                <dt>Printing cost</dt>
+                <dd>To be confirmed</dd>
+              </div>
+              <div class="price-row">
+                <dt>Delivery fee</dt>
+                <dd>₹20</dd>
+              </div>
+              <div class="price-row total-row">
+                <dt>Total amount</dt>
+                <dd>To be confirmed</dd>
+              </div>
+            </dl>
+            <p class="note">Final price will be confirmed after the Xerox shop checks your file.</p>
+          </section>
+        </div>
+
+        <!-- ===== SAMPLE: MEDICINE / INFIRMARY REQUEST ===== -->
+        <div class="sample-group">
+          <span class="badge">Sample: Infirmary request</span>
+
+          <section class="card">
+            <h2 class="card-title">Order Summary</h2>
+            <p class="store-name">From: Medicine (SRU Campus Infirmary)</p>
+
+            <div class="detail-box">
+              <p class="detail-heading">Requested first-aid supplies</p>
+              <ul class="request-list">
+                <li><span>Adhesive plasters</span><span>Qty: 3</span></li>
+                <li><span>Antiseptic wipes</span><span>Qty: 2</span></li>
+              </ul>
+
+              <p class="detail-heading">Tablet request</p>
+              <ul class="request-list">
+                <li><span>1 tablet request</span><span>Qty: 1</span></li>
+              </ul>
+              <p class="approval-note">Tablet requests require infirmary staff approval.</p>
+            </div>
+
+            <p class="disclaimer">
+              Campus Cart is not an emergency medical service. In an emergency,
+              please contact the infirmary or campus security directly.
+            </p>
+          </section>
+
+          <section class="card">
+            <h2 class="card-title">Price Summary</h2>
+            <dl class="price-list">
+              <div class="price-row">
+                <dt>Supply cost</dt>
+                <dd>₹0</dd>
+              </div>
+              <div class="price-row">
+                <dt>Delivery fee</dt>
+                <dd>₹20</dd>
+              </div>
+              <div class="price-row total-row">
+                <dt>Total amount</dt>
+                <dd>₹20</dd>
+              </div>
+            </dl>
+            <p class="note">Supplies are free. You only pay the delivery fee.</p>
+          </section>
+        </div>
+
+      </div>
+    </section>
+  </main>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/pages/checkout.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the page scale properly on phones and tablets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Your Cart | SRU Campus Cart</title>
+
+  <!-- Same font as the homepage and other pages -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link to this page's CSS file (must be in the same folder as cart.html) -->
+  <!-- Shared styles first, then this page's own styles -->
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/cart.css">
+</head>
+<body>
+
+  <!-- ============ SITE HEADER (same on every page) ============ -->
+  <header class="site-header">
+    <div class="navbar">
+
+      <!-- Logo: always links to the homepage -->
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <!-- Cart link. The count badge stays hidden until JavaScript fills it in. -->
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <!-- Account button + dropdown. <details> opens and closes on click without JavaScript.
+             The details below are placeholders for now. -->
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 2. CART HEADING ============ -->
+  <section class="cart-hero">
+    <div class="cart-hero-inner">
+      <a href="homepage.html" class="back-button">&larr; Back to Shopping</a>
+      <h1 class="cart-title">
+        <span class="cart-title-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor"
+               stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/>
+            <path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/>
+          </svg>
+        </span>
+        Your Cart
+      </h1>
+      <p class="cart-subtitle">Review your items before checkout</p>
+    </div>
+  </section>
+
+  <main class="cart-main">
+
+    <!-- ============ 3. ONE-STORE-AT-A-TIME MESSAGE ============
+         Show this message only when the cart has items from more than one store.
+         (This sample cart has three stores, so the message is visible.) -->
+    <div class="multi-store-notice" role="note">
+      <span class="notice-icon" aria-hidden="true">⚠️</span>
+      <div>
+        <p class="notice-title">Your cart has items from more than one store</p>
+        <p class="notice-text">
+          You can place an order from only one store at a time. Remove the items you
+          don't want to order now, complete that order, and then order from the other
+          store.
+        </p>
+      </div>
+    </div>
+
+    <!-- GRID: items on the left, order summary on the right -->
+    <div class="cart-layout">
+
+      <!-- ============ 4. CART ITEMS, GROUPED BY STORE ============ -->
+      <section class="cart-items" aria-label="Cart items">
+
+        <!-- ---------- Store group: Canteen ---------- -->
+        <article class="store-group" data-shop-id="canteen">
+          <header class="group-header">
+            <h2 class="group-title">🍽️ Canteen</h2>
+            <span class="group-count">1 item</span>
+          </header>
+
+          <div class="cart-item" data-product-id="canteen-masala-dosa" data-price="60">
+            <div class="item-image"><span role="img" aria-label="Masala Dosa">🌯</span></div>
+            <div class="item-info">
+              <h3 class="item-name">Masala Dosa</h3>
+              <span class="item-store">Canteen</span>
+              <p class="item-price">₹60 each</p>
+            </div>
+            <div class="quantity-selector">
+              <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+              <span class="qty-value">1</span>
+              <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+            </div>
+            <p class="item-subtotal">₹60</p>
+            <button type="button" class="remove-button" data-action="remove-item" aria-label="Remove Masala Dosa from cart">🗑️</button>
+          </div>
+        </article>
+
+        <!-- ---------- Store group: Green Dabba 1 ---------- -->
+        <article class="store-group" data-shop-id="green-dabba-1">
+          <header class="group-header">
+            <h2 class="group-title">🥗 Green Dabba 1</h2>
+            <span class="group-count">2 items</span>
+          </header>
+
+          <div class="cart-item" data-product-id="green-dabba-1-chocolate-milkshake" data-price="80">
+            <div class="item-image"><span role="img" aria-label="Chocolate Milkshake">🍫</span></div>
+            <div class="item-info">
+              <h3 class="item-name">Chocolate Milkshake</h3>
+              <span class="item-store">Green Dabba 1</span>
+              <p class="item-price">₹80 each</p>
+            </div>
+            <div class="quantity-selector">
+              <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+              <span class="qty-value">2</span>
+              <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+            </div>
+            <p class="item-subtotal">₹160</p>
+            <button type="button" class="remove-button" data-action="remove-item" aria-label="Remove Chocolate Milkshake from cart">🗑️</button>
+          </div>
+        </article>
+
+        <!-- ---------- Store group: Store ---------- -->
+        <article class="store-group" data-shop-id="store">
+          <header class="group-header">
+            <h2 class="group-title">🛒 Store</h2>
+            <span class="group-count">1 item</span>
+          </header>
+
+          <div class="cart-item" data-product-id="store-classmate-notebook" data-price="40">
+            <div class="item-image"><span role="img" aria-label="Notebook">📓</span></div>
+            <div class="item-info">
+              <h3 class="item-name">Notebook</h3>
+              <span class="item-store">Store</span>
+              <p class="item-price">₹40 each</p>
+            </div>
+            <div class="quantity-selector">
+              <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+              <span class="qty-value">1</span>
+              <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+            </div>
+            <p class="item-subtotal">₹40</p>
+            <button type="button" class="remove-button" data-action="remove-item" aria-label="Remove Notebook from cart">🗑️</button>
+          </div>
+        </article>
+
+      </section>
+
+      <!-- ============ 6. ORDER SUMMARY ============
+           Sample numbers: 60 + (80 x 2) + 40 = 260 subtotal.
+           Delivery fee is a sample amount you can edit. -->
+      <aside class="order-summary" aria-label="Order summary">
+        <h2 class="summary-title">Order Summary</h2>
+
+        <dl class="summary-list">
+          <div class="summary-row">
+            <dt>Items</dt>
+            <dd id="cart-item-count">4</dd>
+          </div>
+          <div class="summary-row">
+            <dt>Subtotal</dt>
+            <dd id="cart-subtotal">₹260</dd>
+          </div>
+          <div class="summary-row">
+            <dt>Delivery fee</dt>
+            <dd id="cart-delivery-fee">₹20</dd>
+          </div>
+          <div class="summary-row summary-total">
+            <dt>Total</dt>
+            <dd id="cart-total">₹280</dd>
+          </div>
+        </dl>
+
+        <!-- Leads to your separate Checkout page (checkout.html).
+             When the cart has more than one store, add the extra class "is-disabled"
+             to this link (class="checkout-button is-disabled") to grey it out. -->
+        <a href="checkout.html" class="checkout-button" id="checkout-link">Proceed to Checkout</a>
+        <p class="summary-note">Checkout is available for one store at a time.</p>
+      </aside>
+
+    </div>
+
+    <!-- ============ 5. SAMPLE DESIGNS: XEROX AND MEDICINE ============
+         These show how Xerox and Medicine requests will look inside the cart.
+         Normally a cart shows only the items the student added. -->
+    <section class="design-section" aria-labelledby="special-title">
+      <h2 class="design-heading" id="special-title">Sample designs: Xerox and Medicine requests</h2>
+      <p class="design-intro">
+        These two examples show how special requests look in the cart. Each one is
+        shown on its own because a cart can hold only one store's order.
+      </p>
+
+      <!-- ---------- Xerox request ---------- -->
+      <div class="cart-layout">
+        <section class="cart-items" aria-label="Xerox request">
+          <article class="store-group">
+            <header class="group-header">
+              <h3 class="group-title">🖨️ Xerox &amp; Printing</h3>
+              <span class="group-count">1 request</span>
+            </header>
+
+            <div class="request-item">
+              <div class="item-image"><span role="img" aria-label="PDF document">📄</span></div>
+
+              <div class="request-info">
+                <h4 class="item-name">Unit-3-Notes.pdf</h4>
+                <span class="item-store">Xerox &amp; Printing</span>
+
+                <!-- Print settings: label on the left, value on the right -->
+                <dl class="request-details">
+                  <dt>Print type</dt>
+                  <dd>Black &amp; White</dd>
+                  <dt>Print sides</dt>
+                  <dd>Double-sided</dd>
+                  <dt>Paper size</dt>
+                  <dd>A4</dd>
+                  <dt>Copies</dt>
+                  <dd>2</dd>
+                  <dt>Instructions</dt>
+                  <dd>Staple each copy separately.</dd>
+                </dl>
+              </div>
+
+              <p class="request-status">Price to be confirmed</p>
+              <button type="button" class="remove-button" data-action="remove-item" aria-label="Remove Xerox request from cart">🗑️</button>
+            </div>
+          </article>
+        </section>
+
+        <aside class="order-summary" aria-label="Xerox request summary">
+          <h3 class="summary-title">Order Summary</h3>
+          <dl class="summary-list">
+            <div class="summary-row">
+              <dt>Requests</dt>
+              <dd>1</dd>
+            </div>
+            <div class="summary-row">
+              <dt>Printing cost</dt>
+              <dd class="summary-pending">To be confirmed</dd>
+            </div>
+            <div class="summary-row">
+              <dt>Delivery fee</dt>
+              <dd>₹20</dd>
+            </div>
+            <div class="summary-row summary-total">
+              <dt>Total</dt>
+              <dd>₹20 + printing</dd>
+            </div>
+          </dl>
+          <a href="checkout.html" class="checkout-button">Proceed to Checkout</a>
+          <p class="summary-note">The final printing price will be confirmed by the Xerox shop.</p>
+        </aside>
+      </div>
+
+      <!-- ---------- Medicine request ---------- -->
+      <div class="cart-layout">
+        <section class="cart-items" aria-label="Medicine request">
+          <article class="store-group">
+            <header class="group-header">
+              <h3 class="group-title">💙 SRU Campus Infirmary</h3>
+              <span class="group-count">3 requests</span>
+            </header>
+
+            <!-- First-aid supply: normal cart row, but the price is Free -->
+            <div class="cart-item">
+              <div class="item-image"><span role="img" aria-label="Adhesive plasters">🩹</span></div>
+              <div class="item-info">
+                <h4 class="item-name">Adhesive Plasters</h4>
+                <span class="item-store">SRU Campus Infirmary</span>
+                <p class="item-price item-free">Free</p>
+              </div>
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">2</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <p class="item-subtotal">₹0</p>
+              <button type="button" class="remove-button" data-action="remove-item" aria-label="Remove Adhesive Plasters from cart">🗑️</button>
+            </div>
+
+            <div class="cart-item">
+              <div class="item-image"><span role="img" aria-label="Cotton roll">☁️</span></div>
+              <div class="item-info">
+                <h4 class="item-name">Cotton Roll</h4>
+                <span class="item-store">SRU Campus Infirmary</span>
+                <p class="item-price item-free">Free</p>
+              </div>
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <p class="item-subtotal">₹0</p>
+              <button type="button" class="remove-button" data-action="remove-item" aria-label="Remove Cotton Roll from cart">🗑️</button>
+            </div>
+
+            <!-- Tablet request: no product, no quantity, no price -->
+            <div class="request-item">
+              <div class="item-image"><span role="img" aria-label="Tablet request">📝</span></div>
+
+              <div class="request-info">
+                <h4 class="item-name">Tablet request</h4>
+                <span class="item-store">SRU Campus Infirmary</span>
+
+                <dl class="request-details">
+                  <dt>Request</dt>
+                  <dd>Sample description written by the student.</dd>
+                  <dt>Note</dt>
+                  <dd>Sample optional note.</dd>
+                </dl>
+              </div>
+
+              <p class="request-status status-review">Needs staff approval</p>
+              <button type="button" class="remove-button" data-action="remove-item" aria-label="Remove tablet request from cart">🗑️</button>
+            </div>
+          </article>
+        </section>
+
+        <aside class="order-summary" aria-label="Medicine request summary">
+          <h3 class="summary-title">Request Summary</h3>
+          <dl class="summary-list">
+            <div class="summary-row">
+              <dt>Requested items</dt>
+              <dd>4</dd>
+            </div>
+            <div class="summary-row">
+              <dt>Medical supplies cost</dt>
+              <dd class="summary-free">₹0</dd>
+            </div>
+            <div class="summary-row">
+              <dt>Delivery fee</dt>
+              <dd>₹20</dd>
+            </div>
+            <div class="summary-row summary-total">
+              <dt>Total</dt>
+              <dd>₹20</dd>
+            </div>
+          </dl>
+          <a href="checkout.html" class="checkout-button">Proceed to Checkout</a>
+          <p class="summary-note">Supplies and tablets are free. The delivery fee is the only charge.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- ============ 7. SAMPLE DESIGN: EMPTY CART ============
+         Show this section INSTEAD of the cart when there are no items. -->
+    <section class="design-section" aria-labelledby="empty-title">
+      <h2 class="design-heading" id="empty-title">Sample design: empty cart</h2>
+
+      <div class="empty-cart">
+        <span class="empty-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="56" height="56" fill="none" stroke="currentColor"
+               stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/>
+            <path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/>
+          </svg>
+        </span>
+        <h3 class="empty-title">Your cart is empty</h3>
+        <p class="empty-text">
+          Looks like you haven't added anything yet. Explore the stores on campus
+          and find something you like.
+        </p>
+        <a href="homepage.html" class="browse-button">Browse Stores</a>
+      </div>
+    </section>
+
+  </main>
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/cart-page.js"></script>
+
+</body>
+</html>

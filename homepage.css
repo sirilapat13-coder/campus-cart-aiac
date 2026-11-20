@@ -1,0 +1,155 @@
+/* =====================================================
+   SRU Campus Cart - Homepage styles
+   Shared styles (colours, reset, header, cart link, account menu)
+   are in common.css. This file only adds what the homepage needs.
+   ===================================================== */
+
+/* ---------- 1. HEADER ADDITIONS ---------- */
+/* On the homepage the header stays at the top while scrolling */
+.page-home .site-header {
+  position: sticky;
+  top: 0;
+}
+
+.page-home .navbar {
+  max-width: 1200px;        /* matches the width of the store grid */
+}
+
+/* Search bar: flex: 1 means "take the free space in the row",
+   which pushes the logo left and the cart/account buttons right. */
+.search-bar {
+  flex: 1;
+  max-width: 560px;
+  margin: 0 auto;
+  position: relative;       /* lets us position the icon inside */
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--blue-main);
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 12px 16px 12px 46px;   /* extra left space for the icon */
+  font-size: 1rem;
+  border: 2px solid var(--border);
+  border-radius: 999px;           /* fully rounded pill shape */
+  background-color: var(--blue-light);
+  color: var(--text);
+}
+
+.search-bar input:focus {
+  outline: none;
+  border-color: var(--blue-main);
+  background-color: var(--white);
+}
+
+/* ---------- 2. PAGE CONTENT ---------- */
+.page-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 48px 24px 64px;
+}
+
+.page-content .page-title {
+  margin-bottom: 32px;
+}
+
+/* ---------- 3. STORE GRID ----------
+   CSS GRID: repeat(auto-fill, minmax(240px, 1fr)) means
+   "fit as many columns as possible, each at least 240px wide,
+   and share the leftover space equally."
+   So the number of columns changes automatically with screen size. */
+.store-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* ---------- 4. STORE CARD ---------- */
+.store-card {
+  display: flex;
+  flex-direction: column;   /* image on top, text underneath */
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;         /* keeps the image corners rounded */
+  box-shadow: var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.store-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Same height for every image. object-fit: cover crops the picture
+   to fill the box without stretching it. */
+.store-image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  display: block;
+}
+
+/* FLEXBOX: name on the left, "Explore Store" on the right */
+.store-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 18px;
+}
+
+.store-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.store-link {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--blue-main);
+  white-space: nowrap;      /* keeps "Explore Store →" on one line */
+  transition: color 0.2s;
+}
+
+.store-card:hover .store-link {
+  color: var(--blue-dark);
+}
+
+/* ---------- 5. RESPONSIVE DESIGN ---------- */
+
+/* Tablet */
+@media (max-width: 800px) {
+  .page-home .navbar {
+    flex-wrap: wrap;        /* allow items to drop onto a second line */
+    gap: 14px;
+  }
+
+  /* Search bar moves to its own full-width row below the logo and buttons */
+  .search-bar {
+    order: 3;               /* "order" changes the visual position */
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .page-content .page-title {
+    font-size: 1.8rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .page-content {
+    padding: 32px 16px 48px;
+  }
+
+  .store-grid {
+    grid-template-columns: 1fr;   /* one card per row */
+  }
+}

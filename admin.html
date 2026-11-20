@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Admin Dashboard | SRU Campus Cart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/admin.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="navbar">
+
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="admin-main">
+
+    <!-- Shown to non-admins (the database also refuses them). -->
+    <section class="admin-gate" id="admin-gate" hidden>
+      <h1>Admins only</h1>
+      <p>This page is for campus administrators. If you reached it by mistake, head back to the stores.</p>
+      <a href="homepage.html" class="admin-btn is-approve">Back to Stores</a>
+    </section>
+
+    <!-- The dashboard itself. -->
+    <section class="admin-dashboard" id="admin-dashboard" hidden>
+      <div class="admin-topbar">
+        <h1 class="admin-title">Admin Dashboard</h1>
+        <a href="homepage.html" class="admin-back">&larr; Back to Stores</a>
+      </div>
+
+      <div class="admin-tabs" role="tablist" aria-label="Admin sections">
+        <button type="button" class="admin-tab is-active" data-tab-button="applications"
+                role="tab" aria-selected="true">Applications</button>
+        <button type="button" class="admin-tab" data-tab-button="partners"
+                role="tab" aria-selected="false">Partners</button>
+        <button type="button" class="admin-tab" data-tab-button="xerox"
+                role="tab" aria-selected="false">Xerox pricing</button>
+        <button type="button" class="admin-tab" data-tab-button="medicine"
+                role="tab" aria-selected="false">Medicine</button>
+        <button type="button" class="admin-tab" data-tab-button="shops"
+                role="tab" aria-selected="false">Shops</button>
+        <button type="button" class="admin-tab" data-tab-button="products"
+                role="tab" aria-selected="false">Products</button>
+      </div>
+
+      <section class="admin-panel" id="panel-applications" role="tabpanel">
+        <p class="admin-empty" id="applications-empty" hidden>No applications yet.</p>
+        <div class="admin-list" id="applications-list"></div>
+      </section>
+
+      <section class="admin-panel" id="panel-partners" role="tabpanel" hidden>
+        <p class="admin-empty" id="partners-empty" hidden>No delivery partners yet.</p>
+        <div class="admin-list" id="partners-list"></div>
+      </section>
+
+      <section class="admin-panel" id="panel-xerox" role="tabpanel" hidden>
+        <p class="admin-empty" id="xerox-empty" hidden>No Xerox orders waiting for a price.</p>
+        <div class="admin-list" id="xerox-list"></div>
+      </section>
+
+      <section class="admin-panel" id="panel-medicine" role="tabpanel" hidden>
+        <p class="admin-empty" id="medicine-empty" hidden>No medicine requests waiting for approval.</p>
+        <div class="admin-list" id="medicine-list"></div>
+      </section>
+
+      <section class="admin-panel" id="panel-shops" role="tabpanel" hidden>
+        <form class="admin-addform" id="add-shop-form">
+          <h3 class="admin-addform-title">Add a shop</h3>
+          <div class="admin-grid">
+            <input id="shop-new-name" type="text" placeholder="Name" maxlength="80" required>
+            <input id="shop-new-slug" type="text" placeholder="slug-like-this" maxlength="40" required>
+            <select id="shop-new-category">
+              <option value="food">food</option>
+              <option value="store">store</option>
+              <option value="xerox">xerox</option>
+              <option value="medicine">medicine</option>
+            </select>
+            <input id="shop-new-fee" type="number" min="0" step="1" placeholder="Delivery fee" value="0">
+            <input id="shop-new-sort" type="number" step="1" placeholder="Sort order" value="0">
+            <input id="shop-new-desc" type="text" placeholder="Short description" maxlength="200">
+          </div>
+          <button type="submit" class="admin-btn is-approve">Add shop</button>
+        </form>
+        <p class="admin-empty" id="shops-empty" hidden>No shops yet.</p>
+        <div class="admin-list" id="shops-list"></div>
+      </section>
+
+      <section class="admin-panel" id="panel-products" role="tabpanel" hidden>
+        <div class="admin-toolbar">
+          <label for="product-shop-select">Shop</label>
+          <select id="product-shop-select"></select>
+        </div>
+        <form class="admin-addform" id="add-product-form" hidden>
+          <h3 class="admin-addform-title">Add a product</h3>
+          <div class="admin-grid">
+            <input id="prod-new-name" type="text" placeholder="Name" maxlength="80" required>
+            <input id="prod-new-category" type="text" placeholder="Category (e.g. snacks)" maxlength="40">
+            <input id="prod-new-price" type="number" min="0" step="1" placeholder="Price" required>
+            <input id="prod-new-emoji" type="text" placeholder="Emoji" maxlength="8">
+            <input id="prod-new-sort" type="number" step="1" placeholder="Sort order" value="0">
+          </div>
+          <button type="submit" class="admin-btn is-approve">Add product</button>
+        </form>
+        <p class="admin-empty" id="products-empty" hidden>Add a shop first.</p>
+        <div class="admin-list" id="products-list"></div>
+      </section>
+    </section>
+
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/admin.js"></script>
+</body>
+</html>

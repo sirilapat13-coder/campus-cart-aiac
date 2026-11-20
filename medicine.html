@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the page scale properly on phones and tablets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>SRU Campus Infirmary | SRU Campus Cart</title>
+
+  <!-- Same font as the homepage and other store pages -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link to this page's CSS file (must be in the same folder as medicine.html) -->
+  <!-- Shared styles first, then this page's own styles -->
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/medicine.css">
+</head>
+<body>
+
+  <!-- ============ SITE HEADER (same on every page) ============ -->
+  <header class="site-header">
+    <div class="navbar">
+
+      <!-- Logo: always links to the homepage -->
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <!-- Cart link. The count badge stays hidden until JavaScript fills it in. -->
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <!-- Account button + dropdown. <details> opens and closes on click without JavaScript.
+             The details below are placeholders for now. -->
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 1. INFIRMARY INFORMATION SECTION ============ -->
+  <header class="store-header">
+    <div class="store-header-inner">
+
+      <!-- Back button returns to the homepage -->
+      <a href="homepage.html" class="back-button">&larr; Back to Stores</a>
+
+      <div class="store-details">
+        <h1 class="store-name-title">SRU Campus Infirmary</h1>
+
+        <!-- Location, hours, contact and status in one row -->
+        <ul class="store-meta">
+          <li class="meta-item">📍 SRU Campus, Health Block</li>
+          <li class="meta-item">🕘 9:00 AM – 5:00 PM</li>
+          <li class="meta-item">📞 +91 00000 00000</li>
+          <li class="meta-item">
+            <!-- Open/Closed badge. To show Closed, change class "open" to "closed"
+                 and change the text to "Closed". -->
+            <span class="status-badge open" id="shop-status" data-status="open">
+              <span class="status-dot"></span>
+              Open now
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="store-main" data-shop-id="medicine">
+
+    <!-- Shown only when the shop is closed. JavaScript will remove the "hidden" attribute later. -->
+    <p class="closed-notice" id="shop-closed-notice" role="status" hidden>
+      This shop is currently closed. You can look around, but ordering is unavailable until it opens.
+    </p>
+
+
+    <!-- Short message explaining that this is a free service -->
+    <p class="free-note">
+      <span aria-hidden="true">💙</span>
+      First-aid supplies and tablets from the infirmary are free.
+      You only pay the Campus Cart delivery fee.
+    </p>
+
+    <!-- ============ 2. A. FIRST AID SUPPLIES ============
+         No prices are shown on these cards because everything is free.
+         The emoji inside .food-image is the picture. To use a real photo,
+         replace the whole <span> with:
+         <img src="images/bandage.jpg" alt="Crepe Bandage">                   -->
+    <section class="food-section" id="first-aid">
+      <h2 class="section-title">First Aid Supplies</h2>
+      <div class="food-grid">
+
+        <article data-product-id="medicine-adhesive-plasters" data-category="first-aid" data-price="0" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Adhesive plasters">🩹</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Adhesive Plasters</h3>
+            <div class="food-price-row">
+              <span class="free-label">Free</span>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Request</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="medicine-crepe-bandage" data-category="first-aid" data-price="0" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Crepe bandage">🧻</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Crepe Bandage</h3>
+            <div class="food-price-row">
+              <span class="free-label">Free</span>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Request</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="medicine-cotton-roll" data-category="first-aid" data-price="0" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Cotton roll">☁️</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Cotton Roll</h3>
+            <div class="food-price-row">
+              <span class="free-label">Free</span>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Request</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="medicine-sterile-gauze-pads" data-category="first-aid" data-price="0" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Sterile gauze pads">🩻</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Sterile Gauze Pads</h3>
+            <div class="food-price-row">
+              <span class="free-label">Free</span>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Request</button>
+            </div>
+          </div>
+        </article>
+
+        <article data-product-id="medicine-antiseptic-wipes" data-category="first-aid" data-price="0" class="food-card">
+          <div class="food-image"><span role="img" aria-label="Antiseptic wipes">🧴</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Antiseptic Wipes</h3>
+            <div class="food-price-row">
+              <span class="free-label">Free</span>
+              <span class="availability available">Available</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity">−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity">+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart">Add to Request</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- OUT OF STOCK example: the card gets the extra class "out-of-stock",
+             and the buttons get the "disabled" attribute. -->
+        <article data-product-id="medicine-medical-tape" data-category="first-aid" data-price="0" class="food-card out-of-stock">
+          <div class="food-image"><span role="img" aria-label="Medical tape">🎗️</span></div>
+          <div class="food-body">
+            <h3 class="food-name">Medical Tape</h3>
+            <div class="food-price-row">
+              <span class="free-label">Free</span>
+              <span class="availability unavailable">Out of Stock</span>
+            </div>
+            <div class="food-actions">
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease quantity" data-action="decrease-quantity" disabled>−</button>
+                <span class="qty-value">1</span>
+                <button type="button" class="qty-button" aria-label="Increase quantity" data-action="increase-quantity" disabled>+</button>
+              </div>
+              <button type="button" class="add-button" data-action="add-to-cart" disabled>Add to Request</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ============ 2. B. TABLETS REQUEST ============
+         Tablets are NOT shown as products. Students describe what they need
+         and infirmary staff review the request. -->
+    <section class="food-section" id="tablets">
+      <h2 class="section-title">Tablets</h2>
+
+      <div class="request-card">
+
+        <!-- Notice about staff review and approval -->
+        <div class="notice-box" role="note">
+          <span class="notice-icon" aria-hidden="true">ℹ️</span>
+          <p>
+            <strong>All tablet requests are subject to review and approval by the
+            infirmary staff.</strong>
+            Tablets are free. Staff may contact you before approving a request.
+          </p>
+        </div>
+
+        <!-- Safety notice: this service is not for emergencies -->
+        <div class="notice-box notice-box-emergency" role="note">
+          <span class="notice-icon" aria-hidden="true">🚨</span>
+          <p>
+            <strong>Campus Cart is not an emergency medical service.</strong>
+            In an emergency, contact the infirmary or campus security directly.
+          </p>
+        </div>
+
+        <form id="tablet-request-form" action="#" method="post">
+
+          <div class="form-field">
+            <label class="field-label" for="request-description">Describe your request</label>
+            <textarea id="request-description" name="request_description" class="text-box" rows="3"
+                      placeholder="Briefly describe what you are asking the infirmary for."></textarea>
+          </div>
+
+          <div class="form-field">
+            <label class="field-label" for="request-note">
+              Optional note <span class="optional-tag">(optional)</span>
+            </label>
+            <textarea id="request-note" name="request_note" class="text-box" rows="2"
+                      placeholder="Anything else the infirmary staff should know."></textarea>
+          </div>
+
+          <button type="button" class="add-button request-button" data-action="add-to-cart">Add to Request</button>
+
+        </form>
+      </div>
+    </section>
+
+    <!-- ============ 3. REQUEST SUMMARY ============
+         Sample static values. Edit the numbers below as needed. -->
+    <section class="food-section" id="summary" aria-labelledby="summary-title">
+      <h2 class="section-title" id="summary-title">Request Summary</h2>
+
+      <div class="summary-card">
+        <dl class="summary-list">
+          <div class="summary-row">
+            <dt>Requested items</dt>
+            <dd>2</dd>
+          </div>
+          <div class="summary-row">
+            <dt>Medical supplies cost</dt>
+            <dd class="summary-free">₹0</dd>
+          </div>
+          <div class="summary-row">
+            <dt>Delivery fee</dt>
+            <dd>₹20</dd>
+          </div>
+          <div class="summary-row summary-total">
+            <dt>Total</dt>
+            <dd>₹20</dd>
+          </div>
+        </dl>
+        <p class="summary-note">
+          The delivery fee is the only charge. Supplies and tablets are free.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ 4. STICKY CART SUMMARY ============
+       Fixed to the bottom of the screen. Values are sample static text for now.
+       View Cart links to your separate Cart page (cart.html). -->
+  <aside class="cart-bar" aria-label="Cart summary">
+    <div class="cart-bar-inner">
+      <div class="cart-summary">
+        <span class="cart-icon" aria-hidden="true">🛒</span>
+        <div>
+          <p class="cart-bar-count" id="cart-bar-count">2 items</p>
+          <p class="cart-bar-total" id="cart-bar-total">Delivery fee: ₹20</p>
+        </div>
+      </div>
+      <a href="cart.html" class="view-cart-button">View Cart</a>
+    </div>
+  </aside>
+   
+      <script type="module" src="js/main.js"></script>
+      <script type="module" src="js/pages/shop-page.js"></script>
+      <script type="module" src="js/pages/medicine.js"></script>
+</body>
+
+
+</body>
+</html>

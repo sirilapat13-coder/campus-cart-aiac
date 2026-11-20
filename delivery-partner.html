@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delivery Partner | SRU Campus Cart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/order.css">
+  <link rel="stylesheet" href="styles/delivery.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="navbar">
+
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <section class="orders-hero">
+    <div class="orders-hero-inner">
+      <a href="homepage.html" class="orders-back">&larr; Back to Stores</a>
+      <h1 class="orders-title">Delivery Partner</h1>
+      <p class="orders-subtitle">Pick up orders and deliver them around campus.</p>
+      <button type="button" class="mode-switch-button" id="switch-customer-button" hidden>Switch to Customer Mode</button>
+    </div>
+  </section>
+
+  <main class="orders-main">
+
+    <p class="partner-message" id="partner-message">Loading...</p>
+
+    <!-- Shown when delivery access is suspended -->
+    <div class="partner-banner" id="partner-banner" hidden></div>
+
+    <section class="availability-card" id="availability-card" hidden>
+      <div>
+        <h2 class="availability-title">Available for deliveries</h2>
+        <p class="availability-text" id="availability-text"></p>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="availability-toggle" aria-label="Available for deliveries">
+        <span class="switch-slider"></span>
+      </label>
+    </section>
+
+    <div id="partner-content" hidden>
+
+      <div id="available-section">
+        <div class="section-heading">
+          <h2 id="available-heading">Available orders</h2>
+          <button type="button" class="orders-refresh" id="orders-refresh">Refresh</button>
+        </div>
+        <div class="orders-list" id="available-list"></div>
+      </div>
+
+      <div class="section-heading">
+        <h2 id="active-heading">My active deliveries</h2>
+      </div>
+      <div class="orders-list" id="active-list"></div>
+
+      <div class="section-heading">
+        <h2>Recently completed</h2>
+      </div>
+      <div class="orders-list" id="done-list"></div>
+
+      <div class="section-heading">
+        <h2>My profile</h2>
+      </div>
+      <section class="profile-card" id="profile-card">
+        <dl class="profile-list">
+          <div><dt>Name</dt><dd id="profile-name">-</dd></div>
+          <div><dt>Student ID</dt><dd id="profile-student-id">-</dd></div>
+          <div><dt>Phone</dt><dd id="profile-phone">-</dd></div>
+          <div><dt>Email</dt><dd id="profile-email">-</dd></div>
+          <div><dt>Delivery access</dt><dd id="profile-status">-</dd></div>
+        </dl>
+      </section>
+
+    </div>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/delivery-partner.js"></script>
+</body>
+</html>

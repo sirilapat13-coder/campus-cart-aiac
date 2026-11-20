@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <!-- Makes the page scale properly on phones and tablets -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Xerox &amp; Printing | SRU Campus Cart</title>
+
+  <!-- Same font as the homepage and other store pages -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Link to this page's CSS file (must be in the same folder as xerox.html) -->
+  <!-- Shared styles first, then this page's own styles -->
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/xerox.css">
+</head>
+<body>
+
+  <!-- ============ SITE HEADER (same on every page) ============ -->
+  <header class="site-header">
+    <div class="navbar">
+
+      <!-- Logo: always links to the homepage -->
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <!-- Cart link. The count badge stays hidden until JavaScript fills it in. -->
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <!-- Account button + dropdown. <details> opens and closes on click without JavaScript.
+             The details below are placeholders for now. -->
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ============ 1. SHOP INFORMATION SECTION ============ -->
+  <header class="store-header">
+    <div class="store-header-inner">
+
+      <!-- Back button returns to the homepage -->
+      <a href="homepage.html" class="back-button">&larr; Back to Stores</a>
+
+      <div class="store-details">
+        <h1 class="store-name-title">Xerox &amp; Printing</h1>
+
+        <!-- Location, hours and status in one row -->
+        <ul class="store-meta">
+          <li class="meta-item">📍 SRiX Block, SR University</li>
+          <li class="meta-item">🕘 9:00 AM – 6:00 PM</li>
+          <li class="meta-item">
+            <!-- Open/Closed badge. To show Closed, change class "open" to "closed"
+                 and change the text to "Closed". -->
+            <span class="status-badge open" id="shop-status" data-status="open">
+              <span class="status-dot"></span>
+              Open now
+            </span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+  </header>
+
+  <main class="store-main" data-shop-id="xerox">
+
+    <!-- Shown only when the shop is closed. JavaScript will remove the "hidden" attribute later. -->
+    <p class="closed-notice" id="shop-closed-notice" role="status" hidden>
+      This shop is currently closed. You can look around, but ordering is unavailable until it opens.
+    </p>
+
+
+    <!-- ============ 2. ONLINE XEROX FORM ============
+         The whole form sits inside one rounded card.
+         Student and delivery details are NOT here: they go on the Checkout page. -->
+    <section class="xerox-card" aria-labelledby="xerox-title">
+      <h2 class="xerox-title" id="xerox-title">Online Xerox</h2>
+      <p class="xerox-subtitle">Upload your document, choose your print settings and add it to your cart.</p>
+
+      <form id="xerox-form" action="#" method="post" enctype="multipart/form-data">
+
+        <!-- ---------- A. UPLOAD DOCUMENT ---------- -->
+        <div class="form-block">
+          <h3 class="block-title">Upload document</h3>
+
+          <!-- Large dashed upload area.
+               The file input below is the real browser file picker:
+               it shows the chosen file name next to the button. -->
+          <div class="upload-area">
+            <span class="upload-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="currentColor"
+                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 16V4"/><path d="M7 9l5-5 5 5"/>
+                <path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/>
+              </svg>
+            </span>
+            <p class="upload-heading">Upload your PDF document</p>
+            <p class="upload-note">Only PDF files are accepted.</p>
+            <input type="file" id="pdf-file" name="pdf_file" class="upload-input"
+                   accept=".pdf,application/pdf" aria-label="Choose a PDF file to upload">
+          </div>
+
+          <!-- Visual area where the uploaded file name will appear.
+               For now it shows sample text. JavaScript can fill it in later. -->
+          <div class="file-name-box">
+            <span class="file-name-icon" aria-hidden="true">📄</span>
+            <div>
+              <p class="file-name-label">Selected file</p>
+              <p class="file-name-text" id="selected-file-name">No file selected yet</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ---------- B. PRINTING OPTIONS ---------- -->
+        <div class="form-block">
+          <h3 class="block-title">Printing options</h3>
+
+          <!-- GRID: two columns on desktop, one column on mobile -->
+          <div class="options-grid">
+
+            <!-- 1. Print type -->
+            <fieldset class="option-group">
+              <legend class="option-legend">Print type</legend>
+              <div class="option-cards">
+
+                <label class="option-card">
+                  <input type="radio" name="print_type" value="black-white" checked>
+                  <span class="option-body">
+                    <span class="option-icon" aria-hidden="true">⚫</span>
+                    <span class="option-text">Black &amp; White</span>
+                  </span>
+                </label>
+
+                <label class="option-card">
+                  <input type="radio" name="print_type" value="colour">
+                  <span class="option-body">
+                    <span class="option-icon" aria-hidden="true">🎨</span>
+                    <span class="option-text">Colour</span>
+                  </span>
+                </label>
+
+              </div>
+            </fieldset>
+
+            <!-- 2. Print sides -->
+            <fieldset class="option-group">
+              <legend class="option-legend">Print sides</legend>
+              <div class="option-cards">
+
+                <label class="option-card">
+                  <input type="radio" name="print_sides" value="single" checked>
+                  <span class="option-body">
+                    <span class="option-icon" aria-hidden="true">📄</span>
+                    <span class="option-text">Single-sided</span>
+                  </span>
+                </label>
+
+                <label class="option-card">
+                  <input type="radio" name="print_sides" value="double">
+                  <span class="option-body">
+                    <span class="option-icon" aria-hidden="true">📑</span>
+                    <span class="option-text">Double-sided</span>
+                  </span>
+                </label>
+
+              </div>
+            </fieldset>
+
+            <!-- 3. Paper size -->
+            <fieldset class="option-group">
+              <legend class="option-legend">Paper size</legend>
+              <div class="option-cards">
+
+                <label class="option-card">
+                  <input type="radio" name="paper_size" value="a4" checked>
+                  <span class="option-body">
+                    <span class="option-icon option-icon-text" aria-hidden="true">A4</span>
+                    <span class="option-text">A4 (standard)</span>
+                  </span>
+                </label>
+
+                <label class="option-card">
+                  <input type="radio" name="paper_size" value="a3">
+                  <span class="option-body">
+                    <span class="option-icon option-icon-text" aria-hidden="true">A3</span>
+                    <span class="option-text">A3 (large)</span>
+                  </span>
+                </label>
+
+              </div>
+            </fieldset>
+
+            <!-- 4. Number of copies -->
+            <div class="option-group">
+              <label class="option-legend" for="copies">Number of copies</label>
+              <div class="quantity-selector">
+                <button type="button" class="qty-button" aria-label="Decrease copies" data-action="decrease-copies">−</button>
+                <input type="number" id="copies" name="copies" class="qty-input"
+                       value="1" min="1" max="100">
+                <button type="button" class="qty-button" aria-label="Increase copies" data-action="increase-copies">+</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ---------- C. ADDITIONAL INSTRUCTIONS ---------- -->
+        <div class="form-block">
+          <h3 class="block-title">Additional instructions</h3>
+          <label class="visually-hidden" for="instructions">Additional instructions</label>
+          <textarea id="instructions" name="instructions" class="instructions-box" rows="4"
+                    placeholder="Example: Staple all pages together, or print pages 1–10 separately."></textarea>
+        </div>
+
+        <!-- Adds this print job to the cart. Cart logic comes later with JavaScript. -->
+        <button type="button" class="add-button xerox-add-button" id="xerox-add-to-cart" data-action="add-to-cart">Add to Cart</button>
+
+      </form>
+    </section>
+
+  </main>
+
+  <!-- ============ 3. STICKY CART SUMMARY ============
+       Fixed to the bottom of the screen. Values are sample static text for now.
+       View Cart links to your separate Cart page (cart.html). -->
+  <aside class="cart-bar" aria-label="Cart summary">
+    <div class="cart-bar-inner">
+      <div class="cart-summary">
+        <span class="cart-icon" aria-hidden="true">🛒</span>
+        <div>
+          <p class="cart-bar-count" id="cart-bar-count">1 item</p>
+          <p class="cart-bar-total" id="cart-bar-total">Total: ₹20</p>
+        </div>
+      </div>
+      <a href="cart.html" class="view-cart-button">View Cart</a>
+    </div>
+  </aside>
+      <script type="module" src="js/main.js"></script>
+     <script type="module" src="js/pages/xerox.js"></script>
+
+
+</body>
+</html>

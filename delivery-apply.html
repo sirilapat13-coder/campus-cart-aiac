@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delivery Partner | SRU Campus Cart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/auth.css">
+  <link rel="stylesheet" href="styles/apply.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="navbar">
+
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+
+      <div class="navbar-actions">
+
+        <a href="cart.html" class="cart-link" id="header-cart-link" aria-label="Cart">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+          <span class="cart-link-label">Cart</span>
+          <span class="cart-badge" id="header-cart-count" hidden>0</span>
+        </a>
+
+        <details class="account" id="account-menu">
+          <summary class="account-button" aria-label="Account">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/></svg>
+            <span class="account-label">Account</span>
+          </summary>
+          <div class="account-menu">
+            <p class="account-name" id="account-name">Student Name</p>
+            <p class="account-info" id="account-phone">Phone: +91 98765 43210</p>
+            <p class="account-info" id="account-email">Email: student@sru.edu.in</p>
+            <a href="delivery-partner.html" class="account-link">Delivery Partner</a>
+            <button type="button" class="logout-button" id="logout-button">Logout</button>
+          </div>
+        </details>
+
+      </div>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <section class="auth-card apply-card" aria-labelledby="apply-title">
+
+      <a href="homepage.html" class="apply-back">&larr; Back to Stores</a>
+      <h1 class="auth-title" id="apply-title">Delivery Partner</h1>
+      <p class="auth-subtitle" id="apply-subtitle">Loading...</p>
+
+      <!-- VIEW 1: loading -->
+      <p class="apply-loading" id="view-loading">Checking your application...</p>
+
+      <!-- VIEW 2: the application form (new students and rejected students) -->
+      <form id="apply-form" novalidate hidden>
+        <p class="apply-who" id="apply-who"></p>
+
+        <div class="form-group">
+          <label for="apply-block">Hostel / block</label>
+          <input type="text" id="apply-block" name="block" maxlength="100"
+                 placeholder="e.g. Boys Hostel 2, Block A" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="apply-availability">When are you usually free?</label>
+          <input type="text" id="apply-availability" name="availability" maxlength="200"
+                 placeholder="e.g. Weekdays 5-8 PM, weekends anytime" autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="apply-reason">Why do you want to deliver?</label>
+          <textarea id="apply-reason" name="reason" rows="4" maxlength="500"
+                    placeholder="A couple of sentences is enough." required></textarea>
+          <span class="form-hint"><span id="reason-count">0</span> / 500 characters</span>
+        </div>
+
+        <label class="agree-row">
+          <input type="checkbox" id="apply-agree">
+          <span>I will collect the cash for each order, deliver promptly, and follow campus rules.</span>
+        </label>
+
+        <button type="submit" class="auth-button" id="apply-submit">Submit application</button>
+      </form>
+
+      <!-- VIEW 3: status (pending / rejected / approved / suspended) -->
+      <section id="view-status" hidden>
+        <span class="status-pill" id="status-pill">Pending</span>
+        <h2 class="apply-heading" id="status-title"></h2>
+        <p class="apply-text" id="status-text"></p>
+        <p class="status-note" id="status-note" hidden></p>
+
+        <div class="apply-actions">
+          <button type="button" class="auth-button" id="reapply-button" hidden>Apply again</button>
+          <a href="delivery-partner.html" class="auth-button apply-link" id="dashboard-link" hidden>Open Delivery Dashboard</a>
+          <a href="homepage.html" class="apply-secondary">Back to Stores</a>
+        </div>
+      </section>
+
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+  <script type="module" src="js/pages/delivery-apply.js"></script>
+</body>
+</html>

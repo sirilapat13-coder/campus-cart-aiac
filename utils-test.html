@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>utils.js test</title>
+</head>
+<body style="font-family: sans-serif; padding: 20px;">
+  <h1>utils.js test</h1>
+  <pre id="output"></pre>
+
+  <script type="module">
+    import {
+      formatCurrency, isValidEmail, normalizeIndianMobile, validateRequired,
+      validateQuantity, validateFile, formatDateTime, getErrorMessage,
+      showSuccess, showError, showWarning, showInfo
+    } from './js/utils.js';
+
+    const lines = [];
+    lines.push('formatCurrency(240) = ' + formatCurrency(240));
+    lines.push('formatCurrency(1234567.5) = ' + formatCurrency(1234567.5));
+    lines.push("isValidEmail('student@sru.edu.in') = " + isValidEmail('student@sru.edu.in'));
+    lines.push("isValidEmail('student@') = " + isValidEmail('student@'));
+    lines.push("normalizeIndianMobile('+91 98765 43210') = " + normalizeIndianMobile('+91 98765 43210'));
+    lines.push("validateRequired('   ', 'Student name') = " + JSON.stringify(validateRequired('   ', 'Student name')));
+    lines.push("validateQuantity('2').value = " + validateQuantity('2').value);
+    lines.push('validateQuantity(0).message = ' + validateQuantity(0).message);
+    lines.push("validateFile(notes.docx).message = " + validateFile({ name: 'notes.docx', size: 1024 }).message);
+    lines.push("formatDateTime('2026-11-14T10:15:00Z') = " + formatDateTime('2026-11-14T10:15:00Z'));
+    lines.push("getErrorMessage({ code: '42501' }) = " + getErrorMessage({ code: '42501' }));
+
+    document.getElementById('output').textContent = lines.join('\n');
+
+    showSuccess('Order placed!');
+    showInfo('Your order was accepted.');
+    showWarning('This shop closes in 10 minutes.');
+    showError('Something went wrong.');
+  </script>
+</body>
+</html>

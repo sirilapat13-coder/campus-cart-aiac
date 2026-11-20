@@ -1,0 +1,313 @@
+/* orders.css - styles for my-orders.html.
+   Loaded after common.css, so it can use the same colour variables. */
+
+.orders-hero {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+
+.orders-hero-inner {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 16px;
+}
+
+.orders-back {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--blue-main);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.orders-back:hover {
+  text-decoration: underline;
+}
+
+.orders-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.orders-subtitle {
+  margin-top: 4px;
+  color: var(--text-soft);
+}
+
+.orders-main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+.orders-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.orders-tabs {
+  display: flex;
+  gap: 8px;
+}
+
+.orders-tab,
+.orders-refresh {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 2px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--white);
+  color: var(--text);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.orders-tab.is-active {
+  border-color: var(--blue-main);
+  background-color: var(--blue-main);
+  color: var(--white);
+}
+
+.orders-refresh:hover,
+.orders-tab:hover {
+  border-color: var(--blue-main);
+}
+
+.orders-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.orders-empty {
+  padding: 40px 16px;
+  text-align: center;
+  color: var(--text-soft);
+}
+
+.order-card {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+  padding: 18px;
+}
+
+.order-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.order-shop {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.order-meta {
+  margin-top: 2px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.status-pill {
+  flex-shrink: 0;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background-color: var(--blue-light);
+  color: var(--blue-dark);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.status-pill.status-delivered {
+  background-color: #e5f6ec;
+  color: #1b6b3a;
+}
+
+.status-pill.status-cancelled {
+  background-color: #fdecec;
+  color: #a12626;
+}
+
+.order-message {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background-color: var(--blue-light);
+  color: var(--blue-dark);
+  font-weight: 500;
+}
+
+.order-message.is-cancelled {
+  background-color: #fdecec;
+  color: #a12626;
+}
+
+.timeline {
+  list-style: none;
+  margin: 12px 0;
+  padding: 0;
+}
+
+.timeline li {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 0 14px 28px;
+  color: var(--text-soft);
+}
+
+.timeline li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border);
+  border-radius: 50%;
+  background-color: var(--white);
+}
+
+.timeline li::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 19px;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--border);
+}
+
+.timeline li:last-child {
+  padding-bottom: 0;
+}
+
+.timeline li:last-child::after {
+  display: none;
+}
+
+.timeline li.is-done {
+  color: var(--text);
+}
+
+.timeline li.is-done::before {
+  border-color: var(--blue-main);
+  background-color: var(--blue-main);
+}
+
+.timeline li.is-done::after {
+  background-color: var(--blue-main);
+}
+
+.timeline li.is-current {
+  color: var(--blue-dark);
+  font-weight: 700;
+}
+
+.timeline li.is-current::before {
+  border-color: var(--blue-main);
+}
+
+.timeline-time {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--text-soft);
+  white-space: nowrap;
+}
+
+.order-section-title {
+  margin: 14px 0 6px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+
+.order-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.order-lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 4px 0;
+}
+
+.order-lines li span:last-child {
+  white-space: nowrap;
+  font-weight: 600;
+}
+
+.order-note {
+  margin-top: 6px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  white-space: pre-line;
+}
+
+.order-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+}
+
+.order-total {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.order-payment {
+  margin-top: 2px;
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.order-cancel {
+  min-height: 40px;
+  padding: 8px 16px;
+  border: 2px solid #d64545;
+  border-radius: 12px;
+  background-color: var(--white);
+  color: #a12626;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.order-cancel:hover {
+  background-color: #fdecec;
+}
+
+.order-cancel:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@media (max-width: 480px) {
+  .orders-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .orders-tabs {
+    justify-content: space-between;
+  }
+}

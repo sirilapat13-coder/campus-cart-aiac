@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Create account | SRU Campus Cart</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/common.css">
+  <link rel="stylesheet" href="styles/auth.css">
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="navbar">
+      <a href="homepage.html" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a1 1 0 0 0 1 .8h8.8a1 1 0 0 0 1-.8L20 8H6"/></svg>
+        </span>
+        <span class="logo-text">SRU Campus Cart</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="auth-main">
+    <section class="auth-card" aria-labelledby="signup-title">
+      <h1 class="auth-title" id="signup-title">Create your account</h1>
+      <p class="auth-subtitle">Join Campus Cart to order food, stationery and more on campus.</p>
+
+      <form id="signup-form" novalidate>
+        <div class="form-group">
+          <label for="full-name">Full name</label>
+          <input type="text" id="full-name" name="full_name" placeholder="e.g. Ravi Kumar"
+                 autocomplete="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="student-id">Student ID / Roll number</label>
+          <input type="text" id="student-id" name="student_id" placeholder="e.g. 21XXXXXXXX"
+                 autocomplete="off" required>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Mobile number</label>
+          <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number"
+                 inputmode="numeric" autocomplete="tel" required>
+          <span class="form-hint">Delivery partners will use this to contact you.</span>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com"
+                 autocomplete="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" placeholder="At least 8 characters"
+                 autocomplete="new-password" required>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm-password">Confirm password</label>
+          <input type="password" id="confirm-password" name="confirm_password"
+                 placeholder="Type the password again" autocomplete="new-password" required>
+        </div>
+
+        <label class="show-password">
+          <input type="checkbox" id="show-password"> Show passwords
+        </label>
+
+        <button type="submit" class="auth-button" id="signup-button">Create account</button>
+      </form>
+
+      <div class="auth-success" id="signup-success" hidden>
+        <h2>Check your email</h2>
+        <p>We sent you a link to confirm your account. After confirming, you can log in.</p>
+        <a href="login.html" class="auth-button" style="display:block; line-height:50px;">Go to log in</a>
+      </div>
+
+      <p class="auth-switch">Already have an account? <a href="login.html">Log in</a></p>
+    </section>
+  </main>
+
+  <script type="module" src="js/pages/signup.js"></script>
+</body>
+</html>

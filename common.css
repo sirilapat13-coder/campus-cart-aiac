@@ -1,0 +1,451 @@
+/* =====================================================
+   SRU Campus Cart - Shared styles (loaded by EVERY page)
+   Contains: colour palette, reset, site header, back button,
+   sticky cart bar, shared notices and accessibility rules.
+   Page-specific styles live in each page's own CSS file.
+   Load order in every HTML file:  common.css first, then the page CSS.
+   ===================================================== */
+
+/* ---------- 1. VARIABLES ----------
+   Colours are stored once here and used everywhere with var(--name).
+   The last groups are status colours used only for Open / Available /
+   Out of Stock / warning messages. */
+:root {
+  --blue-dark: #123B63;
+  --blue-main: #2786D9;
+  --blue-light: #EAF4FF;
+  --white: #FFFFFF;
+  --text: #1C2B3A;
+  --text-soft: #60758A;
+  --border: #D6E5F2;
+
+  --green-status: #1E9E5A;
+  --red-status: #C0392B;
+  --red-light: #FDECEA;
+  --amber-bg: #FFF6E0;
+  --amber-border: #F2D58A;
+  --amber-text: #8A5A00;
+
+  --shadow: 0 4px 14px rgba(18, 59, 99, 0.08);
+  --shadow-hover: 0 12px 28px rgba(18, 59, 99, 0.16);
+}
+
+/* ---------- 2. RESET & BASE ---------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;   /* padding and border count inside the width */
+}
+
+html {
+  scroll-behavior: smooth;   /* category tab links glide to their section */
+}
+
+body {
+  font-family: "Outfit", "Segoe UI", Arial, sans-serif;
+  color: var(--text);
+  background-color: var(--white);
+  line-height: 1.5;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;      /* form controls don't inherit the font by default */
+}
+
+/* The "hidden" attribute always hides an element, even if other CSS says display:flex */
+[hidden] {
+  display: none !important;
+}
+
+/* Hides text visually but keeps it for screen readers */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- 3. SITE HEADER (same on every page) ----------
+   FLEXBOX: logo on the left, cart + account on the right.
+   On the homepage a search bar sits in the middle (see homepage.css). */
+.site-header {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  position: relative;        /* the homepage makes it sticky */
+  z-index: 30;               /* keeps the account dropdown above page content */
+}
+
+.navbar {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;            /* logo never gets squashed */
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  display: flex;             /* centres the icon inside the square */
+  align-items: center;
+  justify-content: center;
+}
+
+.logo-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+/* Right-hand group: margin-left:auto pushes it to the far right */
+.navbar-actions {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+/* Cart link with item-count badge */
+.cart-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--white);
+  color: var(--blue-dark);
+  font-weight: 600;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.cart-link:hover {
+  background-color: var(--blue-light);
+  border-color: var(--blue-main);
+}
+
+.cart-badge {
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+/* Account button + dropdown (<details> opens on click, no JavaScript needed) */
+.account {
+  position: relative;        /* dropdown is positioned relative to this */
+}
+
+.account-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;          /* removes the default arrow of <summary> */
+  transition: background-color 0.2s;
+}
+
+.account-button::-webkit-details-marker {
+  display: none;             /* removes the default arrow in Safari/Chrome */
+}
+
+.account-button:hover {
+  background-color: var(--blue-dark);
+}
+
+.account-menu {
+  position: absolute;        /* floats below the button */
+  top: calc(100% + 10px);
+  right: 0;
+  width: 250px;
+  padding: 18px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow-hover);
+}
+
+.account-name {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--blue-dark);
+  margin-bottom: 6px;
+}
+
+.account-info {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+  margin-bottom: 4px;
+}
+
+.account-link,
+.logout-button {
+  display: block;
+  width: 100%;
+  margin-top: 12px;
+  padding: 12px 0 0;
+  border: none;
+  border-top: 1px solid var(--border);
+  background: none;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.account-link {
+  color: var(--blue-main);
+}
+
+.logout-button {
+  margin-top: 10px;
+  color: var(--red-status);
+}
+
+.account-link:hover,
+.logout-button:hover {
+  text-decoration: underline;
+}
+
+/* ---------- 4. BACK BUTTON (used under the header on every page) ---------- */
+.back-button {
+  display: inline-block;
+  padding: 8px 16px;
+  margin-bottom: 14px;
+  background-color: var(--white);
+  color: var(--blue-dark);
+  font-weight: 600;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.back-button:hover {
+  background-color: var(--blue-main);
+  color: var(--white);
+}
+
+/* Light-blue page heading strip (used by Checkout and Delivery Partner) */
+.page-hero {
+  background-color: var(--blue-light);
+  border-bottom: 1px solid var(--border);
+}
+
+.page-hero-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px 24px;
+}
+
+.page-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.page-subtitle {
+  margin-top: 4px;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+/* ---------- 11. STICKY CART SUMMARY ---------- */
+.cart-bar {
+  position: fixed;          /* stays at the bottom while scrolling */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  padding: 12px 16px;
+  background-color: var(--white);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -4px 18px rgba(18, 59, 99, 0.1);
+}
+
+.cart-bar-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cart-summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cart-icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  background-color: var(--blue-light);
+  font-size: 1.4rem;
+}
+
+.cart-items {
+  font-weight: 700;
+  color: var(--blue-dark);
+  line-height: 1.2;
+}
+
+.cart-total {
+  font-size: 0.9rem;
+  color: var(--text-soft);
+}
+
+.view-cart-button {
+  padding: 12px 28px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.view-cart-button:hover {
+  background-color: var(--blue-dark);
+}
+
+
+
+/* ---------- 6. SHARED NOTICES ----------
+   Both are hidden with the "hidden" attribute until JavaScript shows them. */
+.closed-notice {
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  background-color: var(--red-light);
+  border: 1px solid #F3C6C1;
+  border-left: 5px solid var(--red-status);
+  border-radius: 14px;
+  color: var(--red-status);
+  font-weight: 500;
+}
+
+.no-results {
+  margin: 20px 0;
+  padding: 28px 20px;
+  text-align: center;
+  background-color: var(--blue-light);
+  border: 1px dashed var(--border);
+  border-radius: 16px;
+  color: var(--text-soft);
+}
+
+/* ---------- 7. ACCESSIBILITY ---------- */
+
+/* Quantity buttons look 34px but get a 44px tap area (invisible padding) */
+.food-card .qty-button,
+.cart-item .qty-button {
+  position: relative;
+}
+
+.food-card .qty-button::after,
+.cart-item .qty-button::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+}
+
+/* Visible outline for people who use the keyboard */
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--blue-main);
+  outline-offset: 2px;
+}
+
+/* People who ask their device for less motion get no hover lift or smooth scrolling */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+  }
+
+  .food-card:hover,
+  .store-card:hover,
+  .order-card:hover {
+    transform: none !important;
+  }
+}
+
+/* ---------- 8. RESPONSIVE (header) ---------- */
+@media (max-width: 520px) {
+  .navbar {
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .logo-text {
+    font-size: 1.1rem;
+  }
+
+  /* Only icons on small phones. The links keep their aria-labels. */
+  .account-label,
+  .cart-link-label {
+    display: none;
+  }
+
+  .account-button,
+  .cart-link {
+    padding: 10px;
+  }
+
+  .page-hero-inner {
+    padding: 16px 16px 20px;
+  }
+
+  .page-title {
+    font-size: 1.7rem;
+  }
+}

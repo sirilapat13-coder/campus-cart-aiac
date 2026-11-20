@@ -1,0 +1,305 @@
+/* admin.css - Admin Dashboard styles.
+   Loaded after common.css, so it reuses the palette (var(--...)) and header.
+   Mobile-first; the card grid widens on larger screens. */
+
+.admin-main {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 20px 16px 48px;
+}
+
+/* ---------- admins-only gate ---------- */
+.admin-gate {
+  margin-top: 40px;
+  padding: 28px 22px;
+  text-align: center;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.admin-gate h1 {
+  margin-bottom: 8px;
+  color: var(--blue-dark);
+}
+
+.admin-gate p {
+  margin-bottom: 18px;
+  color: var(--text-soft);
+}
+
+/* ---------- top bar ---------- */
+.admin-topbar {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.admin-title {
+  color: var(--blue-dark);
+  font-size: 1.5rem;
+}
+
+.admin-back {
+  color: var(--blue-main);
+  font-weight: 600;
+}
+
+.admin-back:hover {
+  text-decoration: underline;
+}
+
+/* ---------- tabs ---------- */
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-tab {
+  padding: 10px 16px;
+  border: none;
+  border-bottom: 3px solid transparent;
+  background: none;
+  color: var(--text-soft);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.admin-tab.is-active {
+  color: var(--blue-main);
+  border-bottom-color: var(--blue-main);
+}
+
+/* ---------- list + cards ---------- */
+.admin-list {
+  display: grid;
+  gap: 14px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .admin-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.admin-empty {
+  padding: 24px 0;
+  color: var(--text-soft);
+  text-align: center;
+}
+
+.admin-card {
+  padding: 16px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+}
+
+.admin-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+.admin-card-name {
+  color: var(--blue-dark);
+  font-size: 1.1rem;
+}
+
+.admin-meta {
+  margin-bottom: 8px;
+  color: var(--text-soft);
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+
+.admin-field {
+  margin-bottom: 4px;
+  color: var(--text);
+  overflow-wrap: anywhere;
+}
+
+.admin-field-label {
+  font-weight: 600;
+  color: var(--blue-dark);
+}
+
+.admin-counts {
+  margin: 8px 0 0;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ---------- status pills (same names as the apply page) ---------- */
+.status-pill {
+  display: inline-block;
+  padding: 3px 11px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.status-pill.is-pending {
+  background-color: var(--amber-bg);
+  border: 1px solid var(--amber-border);
+  color: var(--amber-text);
+}
+
+.status-pill.is-approved {
+  background-color: #E6F6EE;
+  border: 1px solid var(--green-status);
+  color: var(--green-status);
+}
+
+.status-pill.is-rejected,
+.status-pill.is-suspended,
+.status-pill.is-revoked {
+  background-color: var(--red-light);
+  border: 1px solid var(--red-status);
+  color: var(--red-status);
+}
+
+/* ---------- online dot ---------- */
+.online-dot {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.online-dot::before {
+  content: "";
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: var(--text-soft);
+}
+
+.online-dot.is-online {
+  color: var(--green-status);
+}
+
+.online-dot.is-online::before {
+  background-color: var(--green-status);
+}
+
+.online-dot.is-offline {
+  color: var(--text-soft);
+}
+
+/* ---------- action buttons ---------- */
+.admin-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.admin-btn {
+  flex: 1 1 auto;
+  min-width: 110px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 12px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  text-align: center;
+  cursor: pointer;
+}
+
+.admin-btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.admin-btn.is-approve {
+  background-color: var(--green-status);
+}
+
+.admin-btn.is-reject {
+  background-color: var(--red-status);
+}
+/* price input on Xerox cards */
+.admin-price {
+  flex: 1 1 90px;
+  min-width: 90px;
+  padding: 9px 12px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.95rem;
+}
+.admin-price:focus {
+  outline: none;
+  border-color: var(--blue-main);
+}
+/* add/edit forms for Shops & Products */
+.admin-addform {
+  margin-bottom: 18px;
+  padding: 16px;
+  background-color: var(--blue-light);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+}
+.admin-addform-title {
+  margin-bottom: 10px;
+  color: var(--blue-dark);
+}
+.admin-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr;
+  margin-bottom: 10px;
+}
+@media (min-width: 560px) {
+  .admin-grid { grid-template-columns: 1fr 1fr; }
+}
+.admin-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+.admin-edit {
+  display: block;
+  margin-bottom: 8px;
+}
+.admin-edit-label {
+  display: block;
+  margin-bottom: 2px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+.admin-addform input,
+.admin-addform select,
+.admin-edit input,
+.admin-toolbar select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  font-size: 0.95rem;
+  color: var(--text);
+  background-color: var(--white);
+}
+.admin-addform input:focus,
+.admin-addform select:focus,
+.admin-edit input:focus,
+.admin-toolbar select:focus {
+  outline: none;
+  border-color: var(--blue-main);
+}

@@ -1,0 +1,455 @@
+/* =====================================================
+   SRU Campus Cart - Campus Infirmary page styles
+   Shared styles (colours, reset, header, cart bar) are in common.css.
+   ===================================================== */
+
+/* ---------- 1. INFIRMARY INFORMATION SECTION ---------- */
+.store-header {
+  background-color: var(--blue-light);
+  border-bottom: 1px solid var(--border);
+}
+
+.store-header-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 20px 24px 24px;
+}
+
+.store-name-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 8px;
+}
+
+/* FLEXBOX: location, hours, contact and status sit in one row.
+   flex-wrap lets them move to the next line on small screens. */
+.store-meta {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 24px;
+  color: var(--text-soft);
+  font-weight: 500;
+}
+
+/* Open / Closed badge */
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-badge.open {
+  background-color: #E3F6EC;
+  color: var(--green-status);
+}
+
+.status-badge.open .status-dot {
+  background-color: var(--green-status);
+}
+
+.status-badge.closed {
+  background-color: var(--red-light);
+  color: var(--red-status);
+}
+
+.status-badge.closed .status-dot {
+  background-color: var(--red-status);
+}
+
+/* ---------- 2. MAIN CONTENT WRAPPER ----------
+   The big bottom padding keeps the last section from being
+   hidden behind the sticky cart bar. */
+.store-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 24px 120px;
+}
+
+/* Short "everything is free" message under the header */
+.free-note {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  background-color: var(--blue-light);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  color: var(--blue-dark);
+  font-weight: 500;
+}
+
+/* ---------- 3. SECTIONS ---------- */
+.food-section {
+  padding-top: 28px;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+  margin-bottom: 16px;
+}
+
+/* GRID: as many columns as fit, each at least 250px wide. */
+.food-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 22px;
+}
+
+/* ---------- 4. SUPPLY CARD ---------- */
+.food-card {
+  display: flex;
+  flex-direction: column;   /* image on top, details below */
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;         /* keeps the image corners rounded */
+  box-shadow: var(--shadow);
+  transition: transform 0.25s, box-shadow 0.25s;
+}
+
+.food-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-hover);
+}
+
+/* Same-size picture area for every card.
+   Flexbox centres the emoji (or an <img>) inside. */
+.food-image {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4.2rem;
+  background-color: var(--blue-light);
+}
+
+/* If you replace the emoji with a real photo, these rules size it. */
+.food-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;        /* crops the photo to fill the box without stretching */
+}
+
+.food-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 18px 18px;
+  flex: 1;                  /* body fills the card so all cards line up */
+}
+
+.food-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--blue-dark);
+}
+
+/* "Free" label on the left, availability label on the right.
+   This replaces the price used on the other store pages. */
+.food-price-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.free-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blue-main);
+}
+
+.availability {
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.availability.available {
+  background-color: #E3F6EC;
+  color: var(--green-status);
+}
+
+.availability.unavailable {
+  background-color: var(--red-light);
+  color: var(--red-status);
+}
+
+/* ---------- 5. QUANTITY SELECTOR & BUTTONS ---------- */
+.food-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;         /* pushes this row to the bottom of the card */
+}
+
+.quantity-selector {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--white);
+}
+
+.qty-button {
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--blue-main);
+  font-size: 1.3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.qty-button:hover {
+  background-color: var(--blue-light);
+}
+
+.qty-value {
+  min-width: 26px;
+  text-align: center;
+  font-weight: 600;
+}
+
+.add-button {
+  flex: 1;                  /* button takes the remaining width */
+  padding: 10px 14px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.add-button:hover {
+  background-color: var(--blue-dark);
+}
+
+.add-button:active {
+  transform: scale(0.97);   /* small "press" effect */
+}
+
+/* ---------- 6. OUT OF STOCK STYLES ---------- */
+.out-of-stock .food-image,
+.out-of-stock .food-name,
+.out-of-stock .free-label {
+  opacity: 0.55;            /* fades the card content */
+}
+
+.out-of-stock:hover {
+  transform: none;          /* no lift on unavailable items */
+  box-shadow: var(--shadow);
+}
+
+/* Disabled buttons look grey and don't react to the mouse */
+.add-button:disabled,
+.qty-button:disabled {
+  background-color: #E4EAF0;
+  color: #9AA9B8;
+  cursor: not-allowed;
+}
+
+.qty-button:disabled {
+  background: transparent;
+}
+
+.add-button:disabled:hover,
+.add-button:disabled:active {
+  background-color: #E4EAF0;
+  transform: none;
+}
+
+/* ---------- 7. TABLET REQUEST ---------- */
+.request-card {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 28px;
+}
+
+/* Notice about staff review. FLEXBOX: icon on the left, text on the right. */
+.notice-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 18px;
+  margin-bottom: 22px;
+  background-color: var(--blue-light);
+  border: 1px solid var(--border);
+  border-left: 5px solid var(--blue-main);
+  border-radius: 14px;
+  color: var(--blue-dark);
+}
+
+.notice-icon {
+  font-size: 1.3rem;
+  line-height: 1.4;
+}
+
+/* Red-edged variant of the notice box for the emergency warning */
+.notice-box-emergency {
+  background-color: var(--red-light);
+  border-left-color: var(--red-status);
+  color: var(--red-status);
+}
+
+.form-field {
+  margin-bottom: 18px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.optional-tag {
+  font-weight: 400;
+  color: var(--text-soft);
+}
+
+.text-box {
+  width: 100%;
+  padding: 14px 16px;
+  font-size: 1rem;
+  color: var(--text);
+  background-color: var(--blue-light);
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  resize: vertical;         /* user can only drag the box taller or shorter */
+}
+
+.text-box::placeholder {
+  color: var(--text-soft);
+}
+
+.text-box:focus {
+  outline: none;
+  border-color: var(--blue-main);
+  background-color: var(--white);
+}
+
+.request-button {
+  width: 100%;
+  padding: 14px;
+  font-size: 1.05rem;
+}
+
+/* ---------- 8. REQUEST SUMMARY ---------- */
+.summary-card {
+  max-width: 520px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 24px 28px;
+}
+
+.summary-list {
+  display: block;
+}
+
+/* FLEXBOX: label on the left, value on the right */
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-soft);
+}
+
+.summary-row dd {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.summary-free {
+  color: var(--green-status);   /* ₹0 supplies cost stands out in green */
+}
+
+.summary-total {
+  border-bottom: none;
+  padding-bottom: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.summary-total dd {
+  font-size: 1.3rem;
+  color: var(--blue-dark);
+}
+
+.summary-note {
+  margin-top: 16px;
+  padding: 10px 14px;
+  background-color: var(--blue-light);
+  border-radius: 12px;
+  font-size: 0.9rem;
+  color: var(--blue-dark);
+}
+
+/* ---------- 9. RESPONSIVE DESIGN ---------- */
+
+/* Tablet */
+@media (max-width: 800px) {
+  .store-name-title {
+    font-size: 1.9rem;
+  }
+
+  .food-grid {
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 18px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 520px) {
+  .store-header-inner,
+  .store-main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .store-name-title {
+    font-size: 1.7rem;
+  }
+
+  .food-grid {
+    grid-template-columns: 1fr;     /* one card per row */
+  }
+
+  .request-card,
+  .summary-card {
+    padding: 18px;
+  }
+
+  .view-cart-button {
+    padding: 12px 20px;
+  }
+}

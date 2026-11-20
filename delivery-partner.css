@@ -1,0 +1,147 @@
+/* =====================================================
+   SRU Campus Cart - Delivery Partner page styles
+   Shared styles (colours, reset, header, buttons, page heading)
+   are in common.css.
+   ===================================================== */
+
+/* ---------- 1. PAGE WRAPPER ---------- */
+.partner-main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+}
+
+.partner-section {
+  margin-bottom: 40px;
+}
+
+/* FLEXBOX: heading on the left, order count on the right */
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.section-count {
+  padding: 4px 14px;
+  border-radius: 999px;
+  background-color: var(--blue-light);
+  color: var(--blue-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* ---------- 2. ORDER LIST ----------
+   GRID: as many columns as fit, each at least 300px wide. */
+.order-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 22px;
+}
+
+/* ---------- 3. ORDER CARD ---------- */
+.order-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+}
+
+.order-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.order-id {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--blue-dark);
+}
+
+.order-status {
+  padding: 3px 12px;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.order-status-placed {
+  background-color: var(--blue-light);
+  color: var(--blue-dark);
+}
+
+.order-status-accepted {
+  background-color: var(--amber-bg);
+  color: var(--amber-text);
+}
+
+/* Label above, value below */
+.order-details {
+  display: grid;
+  gap: 10px;
+}
+
+.order-details dt {
+  font-size: 0.8rem;
+  color: var(--text-soft);
+}
+
+.order-details dd {
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+/* Action button (same look as the Add to Cart button) */
+.order-action {
+  width: 100%;
+  margin-top: auto;           /* keeps the button at the bottom of the card */
+  padding: 12px 16px;
+  border: none;
+  border-radius: 999px;
+  background-color: var(--blue-main);
+  color: var(--white);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.order-action:hover {
+  background-color: var(--blue-dark);
+}
+
+.order-action:active {
+  transform: scale(0.97);
+}
+
+/* ---------- 4. RESPONSIVE DESIGN ---------- */
+@media (max-width: 800px) {
+  .section-title {
+    font-size: 1.4rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .partner-main {
+    padding: 20px 16px 48px;
+  }
+
+  .order-list {
+    grid-template-columns: 1fr;     /* one card per row */
+  }
+}
